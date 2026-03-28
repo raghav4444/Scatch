@@ -9,6 +9,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 
+require('dotenv').config();
+
 // Connect to MongoDB
 const db = require('./config/mongoose-connect');
 
