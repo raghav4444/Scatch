@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const productSchema = mongoose.Schema({
     image: {
-        type: String,
+        type: Buffer,
         required: true
     },
     name: {
@@ -28,6 +28,10 @@ const productSchema = mongoose.Schema({
     textcolor: {
         type: String,
         default: 'black'
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

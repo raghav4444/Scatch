@@ -1,16 +1,45 @@
 <%- include('./partials/header') %>
-    <div class="w-full h-screen flex px-20">
-        <div class="w-1/2 flex items-center justify-center h-screen">
-            <div class="w-full px-32">
-                <h4 class="text-2xl capitalize mb-5">Admin Access</h4>
-                <form action="/create" method="post">
-                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                        type="email" placeholder="Email" name="email">
-                    <input class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                        type="password" placeholder="Password" name="password">
-                    <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit" value="Login">
-                </form>
+    
+<main class="w-full min-h-[calc(100vh-80px)] flex px-5 justify-center items-center py-12 md:py-20 relative z-10">
+    <div class="w-full max-w-md glass-liquid glass-stroke rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 relative overflow-hidden group shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        
+        <!-- Internal Glow Layer -->
+        <div class="absolute -inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-black opacity-40 pointer-events-none"></div>
+        <div class="absolute -top-24 -right-24 h-48 w-48 rounded-full bg-blue-500/10 blur-3xl group-hover:bg-blue-400/20 transition-all duration-700"></div>
+        
+        <div class="relative z-10">
+            <div class="mb-8 md:mb-10 text-center md:text-left">
+                <span class="text-[10px] uppercase tracking-[0.4em] text-zinc-500 font-bold mb-2 md:mb-3 block">System Access</span>
+                <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
+                    Admin <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Protocol</span>
+                </h1>
+            </div>
+ 
+            <form action="/create" method="post" class="space-y-4 md:space-y-5">
+                <div class="space-y-2">
+                    <label class="block text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500 ml-1">Authentication ID</label>
+                    <input class="block w-full px-5 md:px-6 py-3.5 md:py-4 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all duration-300 text-sm"
+                        type="email" placeholder="Email Address" name="email">
+                </div>
+ 
+                <div class="space-y-2">
+                    <label class="block text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500 ml-1">Access Key</label>
+                    <input class="block w-full px-5 md:px-6 py-3.5 md:py-4 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all duration-300 text-sm"
+                        type="password" placeholder="••••••••" name="password">
+                </div>
+ 
+                <div class="pt-4 md:pt-6">
+                    <button class="btn-liquid w-full px-6 py-4 rounded-full font-bold text-[10px] md:text-[11px] uppercase tracking-[0.25em] bg-white text-black hover:-translate-y-1 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)]" type="submit">
+                        Initalize Access
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-white/5 text-center">
+                <p class="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-medium">Secured by Liquid Form System v2.0</p>
             </div>
         </div>
     </div>
-    <%- include('./partials/footer') %>
+</main>
+
+<%- include('./partials/footer') %>

@@ -1,46 +1,758 @@
 <%- include('./partials/header') %>
 
-    <% if(error.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= error %>
-            </span>
-        </div>
+
+
+    <script>
+        window.toggleAuthModal = function () {
+            const modal = document.getElementById('auth-modal');
+            const body = document.body;
+            if (modal) {
+                if (modal.classList.contains('hidden')) {
+                    modal.classList.replace('hidden', 'flex');
+                    body.style.overflow = 'hidden';
+                } else {
+                    modal.classList.replace('flex', 'hidden');
+                    body.style.overflow = '';
+                }
+            }
+        };
+
+        window.switchAuthTab = function (type) {
+            const loginSection = document.getElementById('auth-login-section');
+            const registerSection = document.getElementById('auth-register-section');
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+
+            if (type === 'login') {
+                loginSection.classList.remove('hidden');
+                registerSection.classList.add('hidden');
+                tabLogin.classList.add('text-white', 'border-white');
+                tabLogin.classList.remove('text-zinc-500', 'border-transparent');
+                tabRegister.classList.add('text-zinc-500', 'border-transparent');
+                tabRegister.classList.remove('text-white', 'border-white');
+            } else {
+                loginSection.classList.add('hidden');
+                registerSection.classList.remove('hidden', 'md:block');
+                registerSection.classList.add('block');
+                tabRegister.classList.add('text-white', 'border-white');
+                tabRegister.classList.remove('text-zinc-500', 'border-transparent');
+                tabLogin.classList.add('text-zinc-500', 'border-transparent');
+                tabLogin.classList.remove('text-white', 'border-white');
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (document.getElementById('server-error-flag')) {
+                window.toggleAuthModal();
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+                });
+            });
+
+            document.querySelectorAll('.faq-trigger').forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const item = trigger.closest('.faq-item');
+                    const isOpen = item.classList.contains('open');
+
+                    document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <% if(typeof error !=='undefined' && error.length> 0){ %>
+        <div id="server-error-flag" class="hidden" data-error="<%= error %>"></div>
         <% } %>
-            <div class="w-full h-screen flex px-20">
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                    <div class="w-full px-32">
-                        <h3 class="text-4xl">welcome to <span class="text-blue-400 font-semibold">Scatch</span></h3>
-                        <h4 class="text-2xl mb-5">create your account</h4>
-                        <form autocomplete="off" action="/users/register" method="post">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="text" placeholder="Full Name" name="fullname">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Create My Account">
-                        </form>
+
+            <div class="relative min-h-screen overflow-hidden text-white">
+
+
+
+
+                <!-- Hero -->
+                <main class="relative min-h-screen flex items-center pt-28 md:pt-36 pb-16">
+                    <div
+                        class="max-w-7xl mx-auto w-full px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div class="lg:col-span-5 scroll-reveal">
+                            <div
+                                class="glass-liquid glass-stroke rounded-[2rem] md:rounded-[3rem] p-5 md:p-10 lg:p-12 relative overflow-hidden">
+                                <div class="absolute -top-20 -right-16 h-40 w-40 rounded-full bg-white/10 blur-3xl">
+                                </div>
+                                <div class="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-fuchsia-400/10 blur-3xl">
+                                </div>
+
+                                <div
+                                    class="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] uppercase tracking-[0.35em] text-zinc-300 mb-8">
+                                    <span
+                                        class="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)]"></span>
+                                    FW-26 Reserve
+                                </div>
+
+                                <h1
+                                    class="text-3xl sm:text-6xl lg:text-7xl font-semibold tracking-[-0.06em] leading-[0.92] text-glow">
+                                    The Void
+                                    <span
+                                        class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-cyan-200">
+                                        Series II
+                                    </span>
+                                </h1>
+
+                                <p class="mt-6 text-sm md:text-base text-zinc-300/80 leading-8 max-w-xl">
+                                    Sculpting shadow into silk. A collection defined by structural precision and atmospheric weight. Designed for those who inhabit the silence between trends.
+                                </p>
+
+                                <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                                    <button onclick="window.toggleAuthModal()"
+                                        class="btn-liquid relative inline-flex items-center justify-center rounded-full bg-white text-black px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:bg-zinc-200 transition hover:-translate-y-0.5">
+                                        Acquire Piece
+                                    </button>
+
+                                    <a href="#archive"
+                                        class="btn-liquid glass-soft inline-flex items-center justify-center rounded-full px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:-translate-y-0.5 transition-all duration-300">
+                                        Explore Archive
+                                    </a>
+                                </div>
+
+                                <div class="mt-10 grid grid-cols-3 gap-4">
+                                    <div class="glass-soft rounded-2xl p-4">
+                                        <div class="text-2xl font-semibold tracking-tight">480</div>
+                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">GSM
+                                            Grade</div>
+                                    </div>
+                                    <div class="glass-soft rounded-2xl p-4">
+                                        <div class="text-2xl font-semibold tracking-tight">01</div>
+                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">Archive
+                                            File</div>
+                                    </div>
+                                    <div class="glass-soft rounded-2xl p-4">
+                                        <div class="text-2xl font-semibold tracking-tight">72h</div>
+                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">Access
+                                            Window</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-7 scroll-reveal delay-200">
+                            <div class="relative h-[30rem] sm:h-[38rem] lg:h-[46rem]">
+                                <div
+                                    class="absolute inset-0 glass-liquid glass-stroke rounded-[2.5rem] md:rounded-[3.5rem] p-3 animate-float-reverse">
+                                    <div
+                                        class="relative h-full w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-black/40">
+                                        <img src="/images/hero_cloth.png" alt="Hero Piece"
+                                            class="h-full w-full object-cover opacity-90 transition-transform duration-[2500ms] hover:scale-105" />
+
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-tr from-black/50 via-transparent to-white/5">
+                                        </div>
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                                        </div>
+
+                                        <div
+                                            class="absolute top-6 left-6 glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-zinc-200">
+                                            Obsidian Layer
+                                        </div>
+
+                                        <div class="absolute bottom-6 left-6 right-6">
+                                            <div class="glass-soft rounded-[1.75rem] p-5 md:p-6">
+                                                <div
+                                                    class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                                                    <div>
+                                                        <h3
+                                                            class="text-2xl md:text-3xl font-semibold tracking-[-0.04em]">
+                                                            Absolute Presence</h3>
+                                                        <p class="text-sm text-zinc-300/80 mt-2 max-w-md leading-7">
+                                                            Mastery in fabric density and structural drape. This archive edition explores the intersection of brutalist architecture and fine silk.
+                                                        </p>
+                                                    </div>
+                                                    <a href="/shop"
+                                                        class="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-bold text-white/90">
+                                                        Enter Shop
+                                                        <span>↗</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="absolute -top-4 right-2 md:right-0 glass-soft rounded-[2rem] p-5 w-56 animate-float-soft hidden md:block">
+                                    <div class="text-[10px] uppercase tracking-[0.25em] text-zinc-400 mb-2">Edition Card
+                                    </div>
+                                    <h4 class="text-lg font-semibold tracking-tight">Void Capsule</h4>
+                                    <p class="text-sm text-zinc-400 leading-6 mt-2">Precision-cut layer engineered with
+                                        premium density and elevated drape.</p>
+                                </div>
+
+                                <div
+                                    class="absolute -bottom-6 left-6 glass-soft rounded-[2rem] p-5 w-60 animate-float-reverse hidden sm:block">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-2xl font-semibold">10k+</div>
+                                            <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">
+                                                Archive Sales</div>
+                                        </div>
+                                        <div
+                                            class="h-12 w-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-lg">
+                                            ✦
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="w-1/2 flex items-center justify-center h-screen">
-                    <div class="w-full px-32">
-                        <h4 class="text-2xl capitalize mb-5">login your account</h4>
-                        <form autocomplete="off" action="/users/login" method="post">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="email" placeholder="Email" name="email">
-                            <input
-                                class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                type="password" placeholder="Password" name="password">
-                            <input class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                value="Login">
-                        </form>
+                </main>
+
+                <!-- Archive -->
+                <section id="archive" class="relative py-28 md:py-32 border-t border-white/5">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                        <div
+                            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-20 scroll-reveal">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
+                                    Archive</span>
+                                <h2 class="mt-4 text-3xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em]">
+                                    Featured Drop Grid</h2>
+                                <p class="mt-4 max-w-2xl text-zinc-400 leading-8">
+                                    A cleaner, more cinematic product layout with layered glass surfaces, spotlight
+                                    hover interaction, and stronger modern luxury energy.
+                                </p>
+                            </div>
+                            <a href="/shop"
+                                class="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-bold text-white/90 hover:text-cyan-200 transition">
+                                View Full Collection <span>↗</span>
+                            </a>
+                        </div>
+
+                        <% const drops=[ { name: 'Cipher Trench' , price: '$320' , span: 'md:col-span-8' ,
+                            aspect: 'aspect-[16/9]' ,
+                            img: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=1200&auto=format&fit=crop'
+                            }, { name: 'Nomad Core' , price: '$165' , span: 'md:col-span-4' , aspect: 'aspect-[3/4]' ,
+                            img: 'https://images.unsplash.com/photo-1539106609512-efc30ec9fb41?q=80&w=800&auto=format&fit=crop'
+                            }, { name: 'Vector Pullover' , price: '$195' , span: 'md:col-span-4' , aspect: 'aspect-[3/4]'
+                            ,
+                            img: 'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=800&auto=format&fit=crop'
+                            }, { name: 'Horizon Trousers' , price: '$240' , span: 'md:col-span-8' ,
+                            aspect: 'aspect-[16/9]' ,
+                            img: 'https://images.unsplash.com/photo-1472806426350-60358bb456cf?q=80&w=1200&auto=format&fit=crop'
+                            } ]; %>
+
+                            <div class="grid grid-cols-2 md:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
+                                <% drops.forEach((item, index)=> { %>
+                                    <div
+                                        class="<%= item.span %> scroll-reveal <%= index === 1 ? 'delay-100' : index === 2 ? 'delay-200' : index === 3 ? 'delay-300' : '' %>">
+                                        <div
+                                            class="product-card group glass-liquid glass-stroke rounded-[2rem] p-2 hover:-translate-y-2 transition-all duration-500">
+                                            <div
+                                                class="relative <%= item.aspect %> overflow-hidden rounded-[1.5rem] bg-black/40">
+                                                <img src="<%= item.img %>" alt="<%= item.name %>"
+                                                    class="absolute inset-0 h-full w-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-[1800ms]" />
+                                                <div
+                                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                                                </div>
+                                                <div
+                                                    class="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-cyan-300/5 opacity-0 group-hover:opacity-100 transition duration-500">
+                                                </div>
+
+                                                <div
+                                                    class="absolute left-3 md:left-6 right-3 md:right-6 bottom-3 md:bottom-6 flex flex-col md:flex-row md:items-end justify-between gap-2 md:gap-4">
+                                                    <div>
+                                                        <div
+                                                            class="inline-flex mb-3 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-zinc-200">
+                                                            Limited Piece
+                                                        </div>
+                                                        <h3 class="text-base md:text-3xl font-semibold tracking-tight">
+                                                            <%= item.name %>
+                                                        </h3>
+                                                        <p
+                                                            class="mt-1 text-zinc-300/80 text-[10px] md:text-sm tracking-[0.15em] uppercase">
+                                                            <%= item.price %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div
+                                                        class="md:translate-y-4 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                                        <a href="/shop"
+                                                            class="glass-soft inline-flex rounded-full px-3 md:px-4 py-2 md:py-3 text-[8px] md:text-[10px] uppercase tracking-[0.2em] font-bold">
+                                                            View Piece
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                    </div>
+                </section>
+
+                <!-- Philosophy -->
+                <section id="philosophy" class="relative py-28 md:py-32 border-t border-white/5">
+                    <div class="max-w-5xl mx-auto px-6 lg:px-8 text-center">
+                        <div class="scroll-reveal">
+                            <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
+                                Mandate</span>
+                            <h2
+                                class="mt-6 text-3xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em] leading-[1.08]">
+                                We do not manufacture garments. We engineer presence through structural density and silent form.
+                            </h2>
+                            <p class="mt-6 text-zinc-400 max-w-3xl mx-auto leading-8">
+                                The interface mirrors the product philosophy itself: sharp, restrained, fluid, and
+                                premium. Every section should feel like a collectible object, not a normal block on a
+                                page.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-14">
+                            <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-100">
+                                <div class="text-3xl font-semibold">400</div>
+                                <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">GSM Fabric</div>
+                            </div>
+                            <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-200">
+                                <div class="text-3xl font-semibold">Pre</div>
+                                <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">Shrunk Wash</div>
+                            </div>
+                            <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-300">
+                                <div class="text-3xl font-semibold">10k</div>
+                                <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">Pieces Sold</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Atelier -->
+                <section id="atelier" class="relative border-t border-white/5 py-10 md:py-0">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                        <div class="scroll-reveal flex">
+                            <div
+                                class="glass-liquid rounded-[2.5rem] p-8 md:p-12 lg:p-14 flex flex-col justify-center w-full min-h-[520px]">
+                                <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
+                                    Atelier</span>
+                                <h2
+                                    class="mt-5 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em] leading-[1.05]">
+                                    Mastery in
+                                    <span
+                                        class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-cyan-200">
+                                        Isolation
+                                    </span>
+                                </h2>
+                                <p class="mt-6 text-zinc-400 leading-8 max-w-xl">
+                                    In our studio, each silhouette is refined away from trend noise. This archive explores a softer editorial composition, stronger spacing, premium fabric framing, and a more calculated text hierarchy.
+                                </p>
+
+                                <div class="mt-10 flex flex-wrap gap-3">
+                                    <div
+                                        class="glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-zinc-300">
+                                        Editorial Build</div>
+                                    <div
+                                        class="glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-zinc-300">
+                                        Luxury Motion</div>
+                                    <div
+                                        class="glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.22em] text-zinc-300">
+                                        Glass Interface</div>
+                                </div>
+
+                                <a href="/shop"
+                                    class="mt-10 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-bold text-white/90 hover:text-cyan-200 transition">
+                                    Read The Manifesto <span>↗</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="scroll-reveal delay-200 flex">
+                            <div class="glass-liquid rounded-[2.5rem] p-3 w-full min-h-[520px]">
+                                <div class="relative rounded-[2rem] overflow-hidden h-full">
+                                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop"
+                                        alt="Atelier"
+                                        class="h-full w-full object-cover transition-transform duration-[2200ms] hover:scale-105" />
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                                    </div>
+                                    <div
+                                        class="absolute top-6 left-6 glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-zinc-200">
+                                        Studio Frame
+                                    </div>
+                                    <div
+                                        class="absolute bottom-6 right-6 glass-soft rounded-[1.5rem] px-5 py-4 max-w-xs">
+                                        <p class="text-sm text-zinc-200 leading-6">
+                                            The image container itself feels like a premium product card, not just a
+                                            photo block.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accessories -->
+                <section class="relative py-28 md:py-32 border-t border-white/5">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                        <div class="mb-14 scroll-reveal">
+                            <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Object
+                                Collection</span>
+                            <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Secondary
+                                Acquisitions</h2>
+                        </div>
+
+                        <% const accessories=[ { name: 'Archive Book VOL. III' , price: '$85' ,
+                            img: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop'
+                            , delay: '' }, { name: 'Monolith Leather Tote' , price: '$210' ,
+                            img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=800&auto=format&fit=crop'
+                            , delay: 'delay-100 lg:mt-12' }, { name: 'Obscura Parfum' , price: '$175' ,
+                            img: 'https://images.unsplash.com/photo-1583467875263-d50dec37a88c?q=80&w=800&auto=format&fit=crop'
+                            , delay: 'delay-200' }, { name: 'Structural Steel Band' , price: '$380' ,
+                            img: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop'
+                            , delay: 'delay-300 lg:mt-12' } ]; %>
+
+                            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
+                                <% accessories.forEach((item)=> { %>
+                                    <div class="scroll-reveal <%= item.delay %>">
+                                        <div
+                                            class="glass-liquid rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2 group hover:-translate-y-2 transition-all duration-500">
+                                            <div
+                                                class="relative aspect-[4/5] rounded-[1.25rem] md:rounded-[1.5rem] overflow-hidden">
+                                                <img src="<%= item.img %>" alt="<%= item.name %>"
+                                                    class="h-full w-full object-cover group-hover:scale-105 transition duration-[1600ms]">
+                                                <div
+                                                    class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                                                </div>
+                                            </div>
+                                            <div class="p-4 md:p-5">
+                                                <h3 class="text-sm md:text-lg font-semibold tracking-tight">
+                                                    <%= item.name %>
+                                                </h3>
+                                                <p
+                                                    class="mt-1 text-zinc-400 text-[10px] md:text-sm tracking-[0.15em] uppercase">
+                                                    <%= item.price %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials -->
+                <section class="relative py-28 md:py-32 border-t border-white/5 overflow-hidden">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8 mb-14 scroll-reveal">
+                        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
+                                    Syndicate</span>
+                                <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Voices of the
+                                    Archive</h2>
+                            </div>
+                            <p class="max-w-md text-zinc-400 leading-8">
+                                The slider now feels more premium through larger glass cards, better spacing, stronger
+                                readability, and softer movement.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mask-horizontal">
+                        <div class="animate-marquee gap-6 pl-6">
+                            <% const reviews=[ {
+                                text: "The Void Series is more than garmentry; it's structural armor. The atmospheric weight and silhouette transition land at a level of luxury I haven't experienced before."
+                                , role: "Principal Architect" , initial: "L" }, {
+                                text: "After acquiring the Nomad Core, every other piece in my wardrobe felt like noise. This is the definition of silent luxury."
+                                , role: "Visual Ethicist" , initial: "H" }, {
+                                text: "The archive logic makes every purchase feel like a significant acquisition. It’s the most refined editorial storefront in the modern landscape."
+                                , role: "Creative Lead, VOGUE" , initial: "E" }, {
+                                text: "The Void Series is more than garmentry; it's structural armor. The atmospheric weight and silhouette transition land at a level of luxury I haven't experienced before."
+                                , role: "Principal Architect" , initial: "L" }, {
+                                text: "After acquiring the Nomad Core, every other piece in my wardrobe felt like noise. This is the definition of silent luxury."
+                                , role: "Visual Ethicist" , initial: "H" }, {
+                                text: "The archive logic makes every purchase feel like a significant acquisition. It’s the most refined editorial storefront in the modern landscape."
+                                , role: "Creative Lead, VOGUE" , initial: "E" } ]; %>
+
+                                <% reviews.forEach((review)=> { %>
+                                    <div
+                                        class="glass-liquid rounded-[2rem] p-8 w-[360px] md:w-[420px] shrink-0 relative">
+                                        <div
+                                            class="absolute top-5 right-6 text-[90px] leading-none text-white/[0.04] font-bold pointer-events-none">
+                                            “</div>
+                                        <p class="relative text-zinc-200/90 text-sm md:text-[15px] leading-8 pr-6">
+                                            <%= review.text %>
+                                        </p>
+                                        <div class="mt-8 flex items-center gap-4">
+                                            <div
+                                                class="h-11 w-11 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm font-bold">
+                                                <%= review.initial %>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-semibold">
+                                                    <%= review.role %>
+                                                </div>
+                                                <div class="text-[10px] uppercase tracking-[0.24em] text-zinc-500 mt-1">
+                                                    Verified Acquisition</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section id="faq" class="relative py-28 md:py-32 border-t border-white/5">
+                    <div class="max-w-4xl mx-auto px-6 lg:px-8">
+                        <div class="text-center mb-14 scroll-reveal">
+                            <span
+                                class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Intelligence</span>
+                            <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Frequently Asked</h2>
+                        </div>
+
+                        <div class="space-y-5">
+                            <div class="faq-item glass-liquid rounded-[1.75rem] overflow-hidden scroll-reveal">
+                                <button
+                                    class="faq-trigger w-full text-left px-6 md:px-8 py-6 flex items-center justify-between gap-4">
+                                    <span class="text-sm md:text-base font-medium">Do you finalize archive restocks?</span>
+                                    <span
+                                        class="faq-icon text-xl text-zinc-400 transition-transform duration-300">+</span>
+                                </button>
+                                <div class="faq-answer px-6 md:px-8">
+                                    <p class="pb-6 text-zinc-400 leading-8 text-sm">
+                                        Restocks on the Void Series are not guaranteed. Once a sequence is retired, it is removed from the active grid to preserve the value of the acquisition.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="faq-item glass-liquid rounded-[1.75rem] overflow-hidden scroll-reveal delay-100">
+                                <button
+                                    class="faq-trigger w-full text-left px-6 md:px-8 py-6 flex items-center justify-between gap-4">
+                                    <span class="text-sm md:text-base font-medium">What is the global dispatch protocol?</span>
+                                    <span
+                                        class="faq-icon text-xl text-zinc-400 transition-transform duration-300">+</span>
+                                </button>
+                                <div class="faq-answer px-6 md:px-8">
+                                    <p class="pb-6 text-zinc-400 leading-8 text-sm">
+                                        We dispatch globally via Tier 1 secure logistics. Tracking telemetry is provided upon shipment initialization.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                class="faq-item glass-liquid rounded-[1.75rem] overflow-hidden scroll-reveal delay-200">
+                                <button
+                                    class="faq-trigger w-full text-left px-6 md:px-8 py-6 flex items-center justify-between gap-4">
+                                    <span class="text-sm md:text-base font-medium">How should 480 GSM pieces be maintained?</span>
+                                    <span
+                                        class="faq-icon text-xl text-zinc-400 transition-transform duration-300">+</span>
+                                </button>
+                                <div class="faq-answer px-6 md:px-8">
+                                    <p class="pb-6 text-zinc-400 leading-8 text-sm">
+                                        Gentle cycle cold wash. Avoid high-heat drying to maintain structural integrity and fabric finish. Professional cleaning is recommended for heavier trench pieces.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA -->
+                <section class="relative py-28 md:py-36 border-t border-white/5">
+                    <div class="max-w-5xl mx-auto px-6 lg:px-8">
+                        <div
+                            class="glass-liquid glass-stroke rounded-[2.5rem] md:rounded-[3rem] p-8 md:p-12 lg:p-16 text-center relative overflow-hidden scroll-reveal">
+                            <div class="absolute inset-0">
+                                <img src="/images/hero_cloth.png" alt="Background texture"
+                                    class="h-full w-full object-cover opacity-10 scale-110 blur-sm">
+                                <div class="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/40">
+                                </div>
+                            </div>
+
+                            <div class="relative z-10">
+                                <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-400 font-bold">Final
+                                    Entry</span>
+                                <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em]">
+                                    The Form Beckons
+                                </h2>
+                                <p class="mt-5 max-w-2xl mx-auto text-zinc-300/80 leading-8">
+                                    The interface has shown the philosophy. Now let the catalog complete the experience
+                                    with a storefront that feels modern, luxurious, and unmistakably premium.
+                                </p>
+
+                                <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                                    <a href="/shop"
+                                        class="btn-liquid inline-flex items-center justify-center rounded-full bg-white text-black px-8 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:bg-zinc-200 transition">
+                                        Acquire The Archive
+                                    </a>
+                                    <button onclick="window.toggleAuthModal()"
+                                        class="btn-liquid glass-soft inline-flex items-center justify-center rounded-full px-8 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:-translate-y-0.5 transition-all duration-300">
+                                        Join Roster
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="relative pt-20 pb-10 border-t border-white/5">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-14 border-b border-white/5">
+                            <div class="md:col-span-2">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div
+                                        class="h-11 w-11 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm font-bold tracking-[0.2em]">
+                                        N
+                                    </div>
+                                    <span class="text-xl font-semibold tracking-[0.35em] uppercase">NEWRELLA</span>
+                                </div>
+                                <p class="max-w-md text-zinc-400 leading-8 text-sm">
+                                    Absolute Form & Void. A unique luxury interface engineered with liquid glass,
+                                    atmospheric spacing, premium motion, and sculptural product framing.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-[11px] uppercase tracking-[0.3em] text-white mb-5 font-bold">Navigation
+                                </h4>
+                                <ul class="space-y-4 text-sm text-zinc-400">
+                                    <li><a href="/" class="hover:text-white transition">The Atelier</a></li>
+                                    <li><a href="/shop" class="hover:text-white transition">The Archive</a></li>
+                                    <li><button onclick="window.toggleAuthModal()"
+                                            class="hover:text-white transition text-left">Client Login</button></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-[11px] uppercase tracking-[0.3em] text-white mb-5 font-bold">Social
+                                    Vector</h4>
+                                <ul class="space-y-4 text-sm text-zinc-400">
+                                    <li><a href="#" class="hover:text-white transition">Instagram Object</a></li>
+                                    <li><a href="#" class="hover:text-white transition">Twitter Broadcast</a></li>
+                                    <li><a href="#" class="hover:text-white transition">Support Channel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div
+                            class="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-zinc-600">
+                            <span>&copy; 2026 NEWRELLA. All Rights Reserved.</span>
+                            <div class="flex items-center gap-6">
+                                <a href="#" class="hover:text-zinc-400 transition">Privacy</a>
+                                <a href="#" class="hover:text-zinc-400 transition">Terms</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+
+                <!-- Auth Modal -->
+                <div id="auth-modal"
+                    class="hidden fixed inset-0 z-[100] bg-black/70 backdrop-blur-2xl items-center justify-center p-4">
+                    <div class="absolute inset-0" onclick="window.toggleAuthModal()"></div>
+
+                    <div
+                        class="relative w-full max-w-5xl glass-liquid rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto md:overflow-visible">
+                        <button onclick="window.toggleAuthModal()"
+                            class="absolute top-4 md:top-5 right-4 md:right-5 z-30 h-8 md:h-10 w-8 md:w-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition">
+                            <i class="ri-close-line text-lg"></i>
+                        </button>
+
+                        <% if(typeof error !=='undefined' && error.length> 0){ %>
+                            <div
+                                class="absolute top-16 md:top-4 left-1/2 -translate-x-1/2 z-20 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-100 text-[9px] md:text-[10px] uppercase tracking-[0.22em] font-bold text-center">
+                                <%= error %>
+                            </div>
+                            <% } %>
+
+                                <!-- Mobile Tabs -->
+                                <div class="flex md:hidden border-b border-white/10 bg-white/5 sticky top-0 z-20">
+                                    <button onclick="switchAuthTab('login')" id="tab-login"
+                                        class="flex-1 py-4 text-[10px] uppercase tracking-[0.2em] font-bold text-white border-b-2 border-white transition-all">Login</button>
+                                    <button onclick="switchAuthTab('register')" id="tab-register"
+                                        class="flex-1 py-4 text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-500 border-b-2 border-transparent transition-all">Register</button>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2">
+                                    <div id="auth-login-section"
+                                        class="p-6 md:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-white/10 bg-white/[0.02]">
+                                        <span
+                                            class="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Access
+                                            Vault</span>
+                                        <h3 class="mt-2 md:mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.04em]">
+                                            Client Login</h3>
+                                        <p class="mt-2 text-zinc-400 leading-6 md:leading-7 text-xs md:text-sm">Enter
+                                            credentials to proceed.</p>
+
+                                        <form autocomplete="off" action="/users/login" method="post"
+                                            class="mt-8 space-y-4">
+                                            <div class="glass-soft rounded-2xl px-5 py-4">
+                                                <input type="email" name="email" placeholder="Email Address"
+                                                    class="w-full bg-transparent outline-none text-white placeholder:text-zinc-500 text-sm">
+                                            </div>
+
+                                            <div class="glass-soft rounded-2xl px-5 py-4">
+                                                <input type="password" name="password" placeholder="Passcode"
+                                                    class="w-full bg-transparent outline-none text-white placeholder:text-zinc-500 text-sm">
+                                            </div>
+
+                                            <button type="submit"
+                                                class="btn-liquid w-full rounded-2xl bg-white text-black py-4 text-[11px] uppercase tracking-[0.22em] font-bold hover:bg-zinc-200 transition">
+                                                Login
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div id="auth-register-section"
+                                        class="hidden md:block p-6 md:p-10 lg:p-12 bg-gradient-to-br from-cyan-400/5 via-transparent to-fuchsia-400/5">
+                                        <span
+                                            class="text-[9px] md:text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Join
+                                            Roster</span>
+                                        <h3 class="mt-2 md:mt-4 text-2xl md:text-3xl font-semibold tracking-[-0.04em]">
+                                            Create Account</h3>
+                                        <p class="mt-2 text-zinc-400 leading-6 md:leading-7 text-xs md:text-sm">Join the
+                                            exclusive archive.</p>
+
+                                        <form autocomplete="off" action="/users/register" method="post"
+                                            class="mt-8 space-y-4">
+                                            <div class="glass-soft rounded-2xl px-5 py-4">
+                                                <input type="text" name="fullName" placeholder="Full Name"
+                                                    class="w-full bg-transparent outline-none text-white placeholder:text-zinc-500 text-sm">
+                                            </div>
+
+                                            <div class="glass-soft rounded-2xl px-5 py-4">
+                                                <input type="email" name="email" placeholder="Email Address"
+                                                    class="w-full bg-transparent outline-none text-white placeholder:text-zinc-500 text-sm">
+                                            </div>
+
+                                            <div class="glass-soft rounded-2xl px-5 py-4">
+                                                <input type="password" name="password" placeholder="Set Passcode"
+                                                    class="w-full bg-transparent outline-none text-white placeholder:text-zinc-500 text-sm">
+                                            </div>
+
+                                            <button type="submit"
+                                                class="btn-liquid w-full rounded-2xl glass-soft py-4 text-[11px] uppercase tracking-[0.22em] font-bold hover:-translate-y-0.5 transition-all duration-300">
+                                                Register
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
                     </div>
                 </div>
             </div>
-            <%- include('./partials/footer') %>
