@@ -59,63 +59,60 @@
                                 <% } else { %>
                                     <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
                                         <section class="space-y-4 md:space-y-6 lg:col-span-8 scroll-reveal">
-                                            <% cartItems.forEach(function(product) { %>
-                                                <article
-                                                    class="glass-liquid glass-stroke rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2 transition-all group overflow-hidden"
-                                                    class='bg-[<%= product.bgcolor || ' #040405' %>40]'>
-                                                    <div class="flex flex-row h-full rounded-[1.25rem] md:rounded-[1.5rem] overflow-hidden"
-                                                        clas='bg-[ <%= product.panelcolor || ' rgba(255,255,255,0.02)'
-                                                        %>]'>
-                                                        <div
-                                                            class="flex h-24 w-24 md:h-auto md:w-48 items-center justify-center relative overflow-hidden border-r border-white/10 shrink-0">
-                                                            <% const imageSrc=Buffer.isBuffer(product.image)
-                                                                ? 'data:image/jpeg;base64,' +
-                                                                product.image.toString('base64') : (typeof
-                                                                product.image==='string' ? product.image : '' ); %>
-                                                                <% if (imageSrc) { %>
-                                                                    <img class="h-full w-full object-cover opacity-90 relative z-10 transition-transform duration-[1800ms] group-hover:scale-105 group-hover:opacity-100"
-                                                                        src="<%= imageSrc %>" alt="<%= product.name %>">
-                                                                    <div
-                                                                        class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-20 pointer-events-none">
-                                                                    </div>
-                                                                    <% } else { %>
-                                                                        <div
-                                                                            class="text-[10px] uppercase tracking-widest text-zinc-600 relative z-10">
-                                                                            No Signal</div>
-                                                                        <% } %>
+                                            <% const fallbackImages = [
+                                                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&h=700&fit=crop",
+                                                "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&h=700&fit=crop",
+                                                "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=700&h=700&fit=crop",
+                                                "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700&h=700&fit=crop"
+                                            ]; %>
+                                            <% cartItems.forEach(function(product, index) { %>
+                                                <% const imageSrc = Buffer.isBuffer(product.image)
+                                                    ? ('data:image/jpeg;base64,' + product.image.toString('base64'))
+                                                    : ((typeof product.image === 'string' && product.image.trim()) ? product.image : fallbackImages[index % fallbackImages.length]); %>
+                                                <% const productPrice = Number(product.price) || 0; %>
+                                                <% const productDiscount = Number(product.discount) || 0; %>
+                                                <% const netPrice = productPrice - productDiscount; %>
+                                                <article class="group rounded-[1.4rem] md:rounded-[1.8rem] border border-white/10 bg-gradient-to-b from-white/[0.08] to-white/[0.03] backdrop-blur-xl shadow-[0_14px_32px_rgba(0,0,0,0.35)] transition-all duration-500 hover:border-white/25 hover:-translate-y-0.5 hover:shadow-[0_25px_55px_rgba(0,0,0,0.5)] overflow-hidden">
+                                                    <div class="flex flex-col sm:flex-row">
+                                                        <div class="relative h-48 sm:h-auto sm:w-48 md:w-56 overflow-hidden shrink-0">
+                                                            <img class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" src="<%= imageSrc %>" alt="<%= product.name %>">
+                                                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                                                            <% if (productDiscount > 0) { %>
+                                                                <span class="absolute top-3 left-3 rounded-full bg-emerald-500 text-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">
+                                                                    Save ₹ <%= productDiscount %>
+                                                                </span>
+                                                            <% } %>
                                                         </div>
 
-                                                        <div
-                                                            class="flex flex-1 items-center justify-between p-4 md:p-8">
-                                                            <div>
-                                                                <h3
-                                                                    class="font-semibold text-sm md:text-xl tracking-tight mb-1 md:mb-2 text-[<%= product.textcolor || '#ffffff' %>]">
-                                                                    <%= product.name %>
-                                                                </h3>
-                                                                <% if (Number(product.discount)> 0) { %>
-                                                                    <div
-                                                                        class="inline-flex glass-soft rounded-full px-2 md:px-3 py-1 md:py-1.5 text-[7px] md:text-[9px] uppercase tracking-[0.25em] font-bold text-white border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.1)] mt-0.5 md:mt-1">
-                                                                        Saved: ₹ <%= Number(product.discount) %>
-                                                                    </div>
+                                                        <div class="flex-1 p-5 md:p-6 flex flex-col justify-between gap-4">
+                                                            <div class="flex items-start justify-between gap-4">
+                                                                <div>
+                                                                    <p class="text-[10px] uppercase tracking-[0.22em] text-zinc-500 font-bold mb-2">Premium Item</p>
+                                                                    <h3 class="text-lg md:text-2xl font-semibold tracking-tight text-white leading-tight"><%= product.name %></h3>
+                                                                    <p class="mt-2 text-sm text-zinc-400">Curated quality, comfort, and timeless design for daily use.</p>
+                                                                </div>
+                                                                <div class="text-right shrink-0">
+                                                                    <% if (productDiscount > 0) { %>
+                                                                        <p class="text-xs md:text-sm line-through text-zinc-500 mb-1">₹ <%= productPrice %></p>
                                                                     <% } %>
+                                                                    <p class="text-2xl md:text-3xl font-bold tracking-tight text-white">₹ <%= netPrice %></p>
+                                                                </div>
                                                             </div>
-                                                            <div class="text-right flex flex-col justify-end">
-                                                                <% if (Number(product.discount)> 0) { %>
-                                                                    <p
-                                                                        class="text-[9px] md:text-[11px] tracking-[0.1em] line-through text-zinc-500 mb-0.5 md:mb-1 opacity-50">
-                                                                        ₹ <%= Number(product.price) || 0 %>
-                                                                    </p>
-                                                                    <% } %>
-                                                                        <p
-                                                                            class="text-base md:text-2xl font-bold tracking-[0.05em] text-[<%= product.textcolor || '#ffffff' %>]">
-                                                                            ₹ <%= (Number(product.price) || 0) -
-                                                                                (Number(product.discount) || 0) %>
-                                                                        </p>
+
+                                                            <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                                                                <div class="inline-flex items-center rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs text-zinc-300">
+                                                                    <i class="ri-shield-check-line mr-2 text-zinc-400"></i>
+                                                                    Secure checkout eligible
+                                                                </div>
+                                                                <a href="/shop" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-[11px] uppercase tracking-[0.18em] font-bold text-white hover:bg-white/10 transition">
+                                                                    <i class="ri-arrow-left-up-line"></i>
+                                                                    Continue Shopping
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </article>
-                                                <% }); %>
+                                            <% }); %>
                                         </section>
 
                                         <aside class="lg:col-span-4 scroll-reveal delay-100">
