@@ -32,6 +32,16 @@ const productSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    category: {
+        type: String,
+        default: '',
+        trim: true,
+        index: true
+    },
+    description: {
+        type: String,
+        default: ''
     }
 });
 

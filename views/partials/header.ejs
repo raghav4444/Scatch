@@ -4,199 +4,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEWRELLA | Exclusive</title>
-    <!-- Tailwind CSS -->
+    <title>NEWRELLA — Modern Clothing</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
         html {
             scroll-behavior: smooth;
         }
 
-        body {
-            background:
-                radial-gradient(circle at 15% 20%, rgba(30, 58, 138, 0.18), transparent 28%),
-                radial-gradient(circle at 85% 25%, rgba(15, 23, 42, 0.25), transparent 24%),
-                radial-gradient(circle at 50% 85%, rgba(0, 0, 0, 0.2), transparent 28%),
-                linear-gradient(180deg, #020617 0%, #000000 100%);
+        html, body {
+            background: #000;
+            width: 100%;
+            overflow-x: hidden;
+            font-family: 'Barlow', sans-serif;
+        }
+
+        /* ── Liquid glass (Aeon-style) ── */
+        .lg {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+        .lg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.45) 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.15) 80%,
+                rgba(255, 255, 255, 0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .lg-strong {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+        }
+        .lg-strong::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.2) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.2) 80%,
+                rgba(255, 255, 255, 0.5) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Legacy aliases — pages keep using glass-soft / glass-liquid */
+        .glass-soft {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+            border: none;
+        }
+        .glass-soft::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.45) 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.15) 80%,
+                rgba(255, 255, 255, 0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .glass-liquid {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(32px) saturate(200%);
-            -webkit-backdrop-filter: blur(32px) saturate(200%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow:
-                inset 0 1px 1px rgba(255, 255, 255, 0.1),
-                0 30px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.01);
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            border-radius: inherit;
+            border: none;
         }
-
-        .glass-soft {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-            backdrop-filter: blur(20px) saturate(160%);
-            -webkit-backdrop-filter: blur(20px) saturate(160%);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45);
+        .glass-liquid::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.2) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.2) 80%,
+                rgba(255, 255, 255, 0.5) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
         .glass-stroke {
             position: relative;
+            overflow: hidden;
         }
 
-        .glass-stroke::before {
-            content: "";
-            position: absolute;
-            inset: 1px;
-            border-radius: inherit;
-            pointer-events: none;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 28%), radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 35%);
-            opacity: 0.7;
+        /* Typography helpers */
+        .font-display {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
         }
 
+        /* Entrance */
+        .anim {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease;
+        }
+        .anim.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
 
+        .blur-word {
+            display: inline-block;
+            margin-right: 0.28em;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(50px);
+            transition: opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease;
+        }
+        .blur-word.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
 
-        .text-glow {
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.10);
+        .scroll-reveal {
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(24px);
+            transition: opacity 0.75s ease, filter 0.75s ease, transform 0.75s ease;
+        }
+        .scroll-reveal.in-view {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
         }
 
         .btn-liquid {
             position: relative;
             overflow: hidden;
         }
-
-        .btn-liquid::before {
+        .btn-liquid::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(120deg, transparent 25%, rgba(255, 255, 255, 0.35) 50%, transparent 75%);
+            background: linear-gradient(120deg, transparent 25%, rgba(255, 255, 255, 0.25) 50%, transparent 75%);
             transform: translateX(-120%);
-            transition: transform 0.9s ease;
+            transition: transform 0.85s ease;
+            pointer-events: none;
         }
-
-        .btn-liquid:hover::before {
+        .btn-liquid:hover::after {
             transform: translateX(120%);
-        }
-
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .scroll-reveal.in-view {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .delay-100 {
-            transition-delay: 100ms;
-        }
-
-        .delay-200 {
-            transition-delay: 200ms;
-        }
-
-        .delay-300 {
-            transition-delay: 300ms;
-        }
-
-        .delay-400 {
-            transition-delay: 400ms;
-        }
-
-        @keyframes floatY {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-14px);
-            }
-        }
-
-        @keyframes floatYReverse {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(14px);
-            }
-        }
-
-        @keyframes liquidRotate {
-            0% {
-                transform: rotate(0deg);
-                border-radius: 42% 58% 65% 35% / 38% 44% 56% 62%;
-            }
-
-            50% {
-                border-radius: 58% 42% 34% 66% / 62% 50% 50% 38%;
-            }
-
-            100% {
-                transform: rotate(360deg);
-                border-radius: 42% 58% 65% 35% / 38% 44% 56% 62%;
-            }
-        }
-
-        .animate-float-soft {
-            animation: floatY 8s ease-in-out infinite;
-        }
-
-        .animate-float-reverse {
-            animation: floatYReverse 10s ease-in-out infinite;
-        }
-
-        .animate-liquid-blob {
-            animation: liquidRotate 24s linear infinite;
-        }
-
-        .mask-horizontal {
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-
-        @keyframes marqueeX {
-            100% {
-                transform: translateX(calc(-50% - 1rem));
-            }
-        }
-
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            animation: marqueeX 32s linear infinite;
-        }
-
-        .animate-marquee:hover {
-            animation-play-state: paused;
         }
 
         .product-card {
             position: relative;
             overflow: hidden;
         }
-
         .product-card::after {
             content: "";
             position: absolute;
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.18), transparent 28%);
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.12), transparent 28%);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.35s ease;
         }
-
         .product-card:hover::after {
             opacity: 1;
         }
@@ -204,125 +228,430 @@
         .faq-item.open .faq-icon {
             transform: rotate(45deg);
         }
-
         .faq-item.open .faq-answer {
-            max-height: 300px;
+            max-height: 320px;
             opacity: 1;
         }
-
         .faq-answer {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
             transition: all 0.45s ease;
         }
+
+        /* Navbar — Aeon layout */
+        .site-nav {
+            position: fixed;
+            top: 16px;
+            left: 0;
+            right: 0;
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(16px, 4vw, 32px);
+            pointer-events: none;
+        }
+        .site-nav > * {
+            pointer-events: auto;
+        }
+        .nav-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 22px;
+            color: #fff;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .nav-center {
+            display: none;
+            align-items: center;
+            padding: 6px;
+            border-radius: 9999px;
+            gap: 2px;
+        }
+        @media (min-width: 768px) {
+            .nav-center { display: flex; }
+        }
+        .nav-link {
+            padding: 8px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.88);
+            text-decoration: none;
+            white-space: nowrap;
+            font-family: 'Barlow', sans-serif;
+            border-radius: 9999px;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .nav-cta {
+            background: #fff;
+            color: #000;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Barlow', sans-serif;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+        }
+        .nav-icon-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            transition: background 0.2s ease;
+        }
+        .nav-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        @keyframes marqueeX {
+            100% { transform: translateX(calc(-50% - 1rem)); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marqueeX 32s linear infinite;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        .mask-horizontal {
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Toast pills — match glass */
+        .toast-success, .toast-error {
+            border-radius: 9999px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Category empty state orb */
+        @keyframes workingOrbPulse {
+            0%, 100% { transform: scale(1); opacity: 0.35; }
+            50% { transform: scale(1.07); opacity: 0.92; }
+        }
+        .working-orb-ring {
+            animation: workingOrbPulse 2.7s ease-in-out infinite;
+        }
+        .working-orb-ring--delay {
+            animation-delay: 0.85s;
+        }
+        .working-orb-core {
+            background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.14), transparent 62%);
+            animation: workingOrbPulse 3.1s ease-in-out infinite;
+            animation-delay: 0.35s;
+        }
+
+        /* Mega menu */
+        .mega-root {
+            position: static;
+        }
+        .mega-hit {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .mega-hit .mega-chev {
+            font-size: 10px;
+            opacity: 0.65;
+            transition: transform 0.2s ease;
+        }
+        .mega-root:hover .mega-chev,
+        .mega-root:focus-within .mega-chev,
+        .mega-root.mega-open .mega-chev {
+            transform: rotate(180deg);
+        }
+        .mega-panel {
+            position: fixed;
+            left: 50%;
+            top: 72px;
+            width: min(96vw, 1120px);
+            max-height: min(72vh, 620px);
+            overflow-y: auto;
+            z-index: 75;
+            padding: 1.25rem 1.35rem 1.5rem;
+            border-radius: 1.25rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(6px);
+            transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
+            box-shadow: 0 28px 90px rgba(0,0,0,0.55);
+            background: rgba(6,6,8,0.82);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        @media (hover: hover) and (min-width: 1024px) {
+            .mega-root:hover .mega-panel,
+            .mega-root:focus-within .mega-panel {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        .mega-root.mega-open .mega-panel {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+        .mega-col-heading {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: rgba(244, 244, 245, 0.95);
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.35rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .mega-link {
+            display: block;
+            padding: 6px 0;
+            font-size: 13px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.72);
+            text-decoration: none;
+            transition: color 0.15s ease, transform 0.15s ease;
+        }
+        .mega-link:hover {
+            color: #fff;
+            transform: translateX(2px);
+        }
+        .nav-center-shell {
+            display: none;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: min(92vw, 720px);
+        }
+        @media (min-width: 768px) {
+            .nav-center-shell { display: flex; }
+        }
+        @media (min-width: 1024px) {
+            .nav-center-shell { flex-wrap: nowrap; max-width: min(78vw, 900px); gap: 4px; }
+        }
+        .mega-desktop-wrap {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .mega-desktop-wrap {
+                display: flex;
+                align-items: center;
+                gap: 2px;
+                padding: 4px 8px;
+                border-radius: 9999px;
+            }
+            .mega-desktop-wrap.lg {
+                background: rgba(255,255,255,0.01);
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
+                box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+            }
+        }
+        .mobile-acc-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 1rem;
+            border: none;
+            background: rgba(255,255,255,0.06);
+            color: #fff;
+            font-family: 'Barlow', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+        }
+        .mobile-acc-panel {
+            display: none;
+            padding: 8px 10px 14px 12px;
+        }
+        .mobile-acc-panel.is-open {
+            display: block;
+        }
+        .mobile-acc-section-title {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin: 12px 0 6px;
+        }
+        .mobile-menu-scroll {
+            overflow-y: auto;
+            max-height: calc(100vh - 120px);
+            padding: 88px 20px 40px;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 
-<body
-    class="font-[Inter] bg-[#050505] text-zinc-300 overflow-x-hidden min-h-screen relative selection:bg-zinc-800 selection:text-white">
+<body class="bg-black text-white overflow-x-hidden min-h-screen selection:bg-white/20 selection:text-white">
 
-    <!-- Background -->
-    <div class="fixed inset-0 pointer-events-none z-[-1]">
-
-        <div class="absolute -top-24 left-[5%] h-[28rem] w-[28rem] rounded-full bg-blue-900/20 blur-[120px]"></div>
-        <div class="absolute top-[18%] right-[8%] h-[24rem] w-[24rem] rounded-full bg-slate-900/30 blur-[120px]"></div>
-        <div class="absolute bottom-[8%] left-[30%] h-[22rem] w-[22rem] rounded-full bg-blue-950/10 blur-[120px]"></div>
-        <div class="absolute top-[12%] left-[12%] h-72 w-72 bg-blue-900/5 blur-[90px] animate-liquid-blob"></div>
-        <div class="absolute bottom-[8%] right-[10%] h-80 w-80 bg-blue-800/5 blur-[100px] animate-liquid-blob"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-40">
+        <div class="absolute -top-40 left-[10%] h-[28rem] w-[28rem] rounded-full bg-white/[0.03] blur-[100px]"></div>
+        <div class="absolute bottom-0 right-[5%] h-[22rem] w-[22rem] rounded-full bg-white/[0.02] blur-[90px]"></div>
     </div>
 
-    <!-- Global Floating Glass Navbar -->
-    <!-- Global Floating Glass Navbar -->
-    <nav
-        class="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[92%] lg:w-[70%] max-w-5xl z-[60] bg-white/[0.04] backdrop-blur-[24px] border border-white/10 rounded-full flex items-center justify-between px-6 md:px-8 py-3 md:py-4 transition-all duration-300 hover:bg-white/[0.06] shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+    <nav class="site-nav" aria-label="Primary">
+        <a href="/" class="nav-logo lg" title="NEWRELLA">N</a>
+        <div class="nav-center-shell lg px-3 py-1 rounded-[999px]">
+            <a class="nav-link" href="/">Home</a>
 
-        <!-- Left: Branding -->
-        <a href="/" class="flex flex-col">
-            <span class="text-lg md:text-xl font-black tracking-[0.2em] text-white">NEWRELLA</span>
-        </a>
-
-        <!-- Center: Desktop Links -->
-        <div class="hidden md:flex items-center gap-10">
-            <a href="/"
-                class="text-xs uppercase tracking-[0.25em] font-medium text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all after:duration-300">Home</a>
-            <a href="/shop"
-                class="text-xs uppercase tracking-[0.25em] font-medium text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all after:duration-300">Shop</a>
-            <a href="/order-tracking"
-                class="text-xs uppercase tracking-[0.25em] font-medium text-zinc-400 hover:text-white transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-white hover:after:w-full after:transition-all after:duration-300">Order
-                Tracking</a>
-        </div>
-
-        <!-- Right: Actions -->
-        <div class="flex items-center gap-6">
-            <a href="/cart" class="text-zinc-400 hover:text-white transition-colors flex items-center gap-2 group">
-                <i class="ri-shopping-bag-line text-lg group-hover:scale-110 transition-transform"></i>
-            </a>
-
-            <!-- Authentication State -->
-            <% if (typeof loggedIn !=='undefined' && loggedIn) { %>
-                <a href="/users/logout"
-                    class="text-xs uppercase tracking-[0.1em] font-bold text-red-400 hover:text-red-300 transition-colors">Logout</a>
-                <a href="/profile"
-                    class="w-8 h-8 rounded-full border border-white/20 bg-white/5 flex items-center justify-center hover:bg-white hover:text-black transition-colors">
-                    <i class="ri-user-3-fill"></i>
-                </a>
-                <% } else { %>
-                    <button onclick="window.toggleAuthModal && window.toggleAuthModal()"
-                        class="text-xs uppercase tracking-[0.1em] font-bold text-white hover:text-zinc-300 transition-colors hidden md:block">Login</button>
-                    <button onclick="window.toggleAuthModal && window.toggleAuthModal()"
-                        class="w-8 h-8 rounded-full border border-white/20 bg-white text-black flex items-center justify-center hover:bg-zinc-200 transition-colors">
-                        <i class="ri-key-2-line"></i>
+            <% if (typeof megaMenu !== 'undefined' && megaMenu && megaMenu.length) { %>
+            <div class="mega-desktop-wrap lg" aria-hidden="false">
+                <% megaMenu.forEach(function(root) { %>
+                <div class="mega-root">
+                    <button type="button" class="mega-hit nav-link" aria-expanded="false" aria-haspopup="true" data-mega-btn>
+                        <%= root.label %>
+                        <span class="mega-chev" aria-hidden="true">▼</span>
                     </button>
-                    <% } %>
+                    <div class="mega-panel" role="region" aria-label="<%= root.label %> categories">
+                        <div class="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 xl:grid-cols-5">
+                            <% root.columns.forEach(function(col) { %>
+                            <div>
+                                <p class="mega-col-heading"><%= col.heading %></p>
+                                <ul class="list-none m-0 p-0">
+                                    <% col.links.forEach(function(link) { %>
+                                    <li>
+                                        <a class="mega-link" href="/shop?category=<%= encodeURIComponent(link.slug) %>"><%= link.label %></a>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
 
-                        <!-- Mobile Menu Toggle -->
-                        <button onclick="toggleMobileMenu()"
-                            class="md:hidden text-white w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/10 relative z-[70]">
-                            <i id="menu-icon" class="ri-menu-line transition-transform duration-300"></i>
-                        </button>
+            <a class="nav-link lg:hidden" href="/shop">Shop</a>
+            <a class="nav-link" href="/order-tracking">Orders</a>
+            <a href="/shop" class="nav-cta hidden sm:inline-flex">
+                Shop collection
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+        </div>
+        <div class="nav-actions">
+            <a href="/cart" class="nav-icon-btn lg rounded-full" aria-label="Shopping bag">
+                <i class="ri-shopping-bag-line text-xl"></i>
+            </a>
+            <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                <a href="/users/logout" class="hidden md:inline nav-link text-red-300 hover:text-red-200 hover:bg-red-500/10">Logout</a>
+                <a href="/profile" class="nav-icon-btn lg rounded-full" aria-label="Profile">
+                    <i class="ri-user-3-fill text-lg"></i>
+                </a>
+            <% } else { %>
+                <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="hidden md:inline-flex nav-cta py-2 px-4 text-sm">
+                    Login
+                </button>
+                <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="nav-icon-btn lg rounded-full md:hidden" aria-label="Login">
+                    <i class="ri-key-2-line text-lg"></i>
+                </button>
+            <% } %>
+            <button type="button" onclick="toggleMobileMenu()" class="nav-icon-btn lg rounded-full md:hidden" aria-label="Menu">
+                <i id="menu-icon" class="ri-menu-line text-xl transition-transform duration-300"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[65] pointer-events-none opacity-0 transition-all duration-500">
-        <!-- Backdrop blur -->
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-xl"></div>
-
-        <!-- Menu Content -->
-        <div class="relative h-full flex flex-col items-center justify-center gap-8 px-6">
-            <a href="/" onclick="toggleMobileMenu()"
-                class="text-2xl font-bold uppercase tracking-[0.3em] text-white hover:text-blue-400 transition-colors">Home</a>
-            <a href="/shop" onclick="toggleMobileMenu()"
-                class="text-2xl font-bold uppercase tracking-[0.3em] text-white hover:text-blue-400 transition-colors">Shop</a>
-            <a href="/order-tracking" onclick="toggleMobileMenu()"
-                class="text-2xl font-bold uppercase tracking-[0.3em] text-white hover:text-blue-400 transition-colors">Order
-                Tracking</a>
-
-            <div class="mt-8 pt-8 border-t border-white/10 w-full max-w-[200px] flex flex-col gap-6 items-center">
-                <a href="/cart" onclick="toggleMobileMenu()" class="flex items-center gap-3 text-zinc-400">
-                    <i class="ri-shopping-bag-line text-xl"></i>
-                    <span class="text-xs uppercase tracking-widest font-bold">Shopping Bag</span>
-                </a>
-                <% if (typeof loggedIn !=='undefined' && loggedIn) { %>
-                    <a href="/profile" onclick="toggleMobileMenu()"
-                        class="text-xs uppercase tracking-widest font-bold text-white">Profile Control</a>
-                    <a href="/users/logout" class="text-xs uppercase tracking-widest font-bold text-red-500">Terminate
-                        Protocol</a>
-                    <% } else { %>
-                        <button onclick="toggleMobileMenu(); window.toggleAuthModal && window.toggleAuthModal()"
-                            class="text-xs uppercase tracking-widest font-bold text-white bg-white/10 w-full py-4 rounded-full border border-white/20">Login
-                            / Join</button>
-                        <a href="/owners/products" onclick="toggleMobileMenu()"
-                            class="text-[9px] uppercase tracking-[0.2em] text-zinc-500 font-bold hover:text-white transition-colors">Owner
-                            Terminal</a>
-                        <% } %>
-            </div>
-
-            <button onclick="toggleMobileMenu()"
-                class="absolute top-8 right-8 text-zinc-500 hover:text-white transition-colors">
-                <i class="ri-close-line text-3xl"></i>
+    <div id="mobile-menu" class="fixed inset-0 z-[80] pointer-events-none opacity-0 transition-opacity duration-500">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-xl" onclick="toggleMobileMenu()"></div>
+        <div class="relative flex h-full flex-col">
+            <button type="button" onclick="toggleMobileMenu()" class="absolute right-5 top-5 z-10 nav-icon-btn lg rounded-full text-zinc-300 hover:text-white" aria-label="Close menu">
+                <i class="ri-close-line text-2xl"></i>
             </button>
+            <div class="mobile-menu-scroll flex flex-col gap-3">
+                <a href="/" onclick="toggleMobileMenu()" class="font-display text-center text-2xl text-white py-2">Home</a>
+                <a href="/shop" onclick="toggleMobileMenu()" class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400 py-2 hover:text-white transition-colors">All shop</a>
+
+                <% if (typeof megaMenu !== 'undefined' && megaMenu && megaMenu.length) { %>
+                    <% megaMenu.forEach(function(root, ri) { %>
+                    <div class="mobile-acc">
+                        <button type="button" class="mobile-acc-btn" onclick="toggleMobileAccordion('acc-<%= ri %>')" aria-expanded="false" id="acc-head-<%= ri %>">
+                            <%= root.label %>
+                            <i class="ri-arrow-down-s-line text-lg transition-transform mobile-acc-icon" id="acc-icon-<%= ri %>"></i>
+                        </button>
+                        <div class="mobile-acc-panel" id="acc-<%= ri %>">
+                            <% root.columns.forEach(function(col) { %>
+                                <p class="mobile-acc-section-title"><%= col.heading %></p>
+                                <ul class="list-none m-0 p-0 space-y-1">
+                                    <% col.links.forEach(function(link) { %>
+                                    <li>
+                                        <a href="/shop?category=<%= encodeURIComponent(link.slug) %>" onclick="toggleMobileMenu()" class="block rounded-lg px-3 py-2 text-sm text-zinc-300 hover:bg-white/10 hover:text-white transition-colors"><%= link.label %></a>
+                                    </li>
+                                    <% }); %>
+                                </ul>
+                            <% }); %>
+                        </div>
+                    </div>
+                    <% }); %>
+                <% } %>
+
+                <div class="my-4 h-px w-full bg-white/10"></div>
+                <a href="/order-tracking" onclick="toggleMobileMenu()" class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400 hover:text-white py-2">Orders</a>
+                <a href="/cart" onclick="toggleMobileMenu()" class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400 hover:text-white py-2">Bag</a>
+                <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                    <a href="/profile" onclick="toggleMobileMenu()" class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-zinc-400 hover:text-white py-2">Profile</a>
+                    <a href="/users/logout" onclick="toggleMobileMenu()" class="text-center text-sm font-semibold uppercase tracking-widest text-red-400 py-2">Logout</a>
+                <% } else { %>
+                    <button type="button" onclick="toggleMobileMenu(); window.toggleAuthModal && window.toggleAuthModal()" class="nav-cta mx-auto mt-2 w-full max-w-xs justify-center py-3">Login / Join</button>
+                <% } %>
+                <a href="/owners/products" onclick="toggleMobileMenu()" class="text-center text-[10px] uppercase tracking-[0.25em] text-zinc-600 hover:text-zinc-400 py-4">Owner</a>
+            </div>
         </div>
     </div>
 
@@ -331,19 +660,77 @@
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('menu-icon');
             const body = document.body;
+            if (!menu || !icon) return;
 
             if (menu.classList.contains('opacity-0')) {
-                // Open
                 menu.classList.remove('opacity-0', 'pointer-events-none');
                 icon.classList.replace('ri-menu-line', 'ri-close-line');
                 icon.style.transform = 'rotate(90deg)';
                 body.style.overflow = 'hidden';
             } else {
-                // Close
                 menu.classList.add('opacity-0', 'pointer-events-none');
                 icon.classList.replace('ri-close-line', 'ri-menu-line');
                 icon.style.transform = 'rotate(0deg)';
                 body.style.overflow = '';
             }
         }
+
+        function initPageAnims() {
+            document.querySelectorAll('.anim').forEach(function (el) {
+                var delay = parseFloat(el.dataset.delay || 0);
+                el.style.transitionDelay = delay + 's';
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            el.classList.add('visible');
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.06 });
+                observer.observe(el);
+            });
+        }
+        requestAnimationFrame(initPageAnims);
+
+        function toggleMobileAccordion(panelId) {
+            var panel = document.getElementById(panelId);
+            if (!panel) return;
+            var open = panel.classList.toggle('is-open');
+            var idx = panelId.replace(/^acc-/, '');
+            var icon = document.getElementById('acc-icon-' + idx);
+            if (icon) icon.style.transform = open ? 'rotate(180deg)' : '';
+            var head = document.getElementById('acc-head-' + idx);
+            if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        (function initMegaMenuNav() {
+            var mqHover = window.matchMedia('(hover: hover) and (min-width: 1024px)');
+            function closeAllMega() {
+                document.querySelectorAll('.mega-root.mega-open').forEach(function (r) {
+                    r.classList.remove('mega-open');
+                    var b = r.querySelector('[data-mega-btn]');
+                    if (b) b.setAttribute('aria-expanded', 'false');
+                });
+            }
+            document.querySelectorAll('.mega-root').forEach(function (root) {
+                var btn = root.querySelector('[data-mega-btn]');
+                if (!btn) return;
+                btn.addEventListener('click', function (e) {
+                    if (mqHover.matches) return;
+                    e.preventDefault();
+                    var wasOpen = root.classList.contains('mega-open');
+                    closeAllMega();
+                    if (!wasOpen) {
+                        root.classList.add('mega-open');
+                        btn.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.mega-root')) closeAllMega();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeAllMega();
+            });
+        })();
     </script>

@@ -1,0 +1,53 @@
+<% 
+    var slugDisplay = typeof activeCategorySlug !== 'undefined' ? activeCategorySlug : '';
+    var meta = typeof categoryMeta !== 'undefined' ? categoryMeta : null;
+    var unknown = typeof unknownCategorySlug !== 'undefined' && unknownCategorySlug;
+%>
+<div class="col-span-full flex flex-col items-center justify-center px-4 py-14 md:py-20">
+    <div class="glass-liquid glass-stroke relative w-full max-w-xl overflow-hidden rounded-[1.5rem] md:rounded-[2rem] px-8 py-12 md:px-12 md:py-14 text-center">
+        <div class="pointer-events-none absolute -left-16 top-1/2 h-48 w-48 -translate-y-1/2 rounded-full bg-white/[0.06] blur-3xl"></div>
+        <div class="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/[0.05] blur-3xl"></div>
+
+        <div class="relative mx-auto mb-10 flex h-36 w-36 items-center justify-center md:h-44 md:w-44">
+            <span class="working-orb-ring absolute inset-0 rounded-full border border-white/25"></span>
+            <span class="working-orb-ring working-orb-ring--delay absolute inset-[10px] rounded-full border border-white/15 md:inset-3"></span>
+            <span class="working-orb-core absolute inset-[22px] rounded-full md:inset-7"></span>
+            <span class="font-display relative text-2xl italic text-white md:text-3xl">N</span>
+        </div>
+
+        <p class="text-xs uppercase tracking-[0.35em] text-zinc-500 mb-3">Atelier in motion</p>
+        <% if (unknown) { %>
+            <h2 class="font-display text-[clamp(1.75rem,5vw,2.75rem)] leading-tight tracking-tight text-white">
+                Charting this territory
+            </h2>
+            <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+                The aisle <span class="text-white/90"><%= slugDisplay %></span> is not wired yet. We’re mapping inventory — check back soon or browse the full archive.
+            </p>
+        <% } else if (meta) { %>
+            <h2 class="font-display text-[clamp(1.75rem,5vw,2.75rem)] leading-tight tracking-tight text-white">
+                Crafting this edit
+            </h2>
+            <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+                Nothing listed under <span class="text-white/90"><%= meta.rootLabel %> · <%= meta.label %></span> yet. Assign products to this category in the owner panel — until then, enjoy the rest of the collection.
+            </p>
+        <% } else { %>
+            <h2 class="font-display text-[clamp(1.75rem,5vw,2.75rem)] leading-tight tracking-tight text-white">
+                Loading soon
+            </h2>
+            <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+                This category is empty for now. Explore the full shop while we prepare new drops.
+            </p>
+        <% } %>
+
+        <div class="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <a href="/shop"
+                class="btn-liquid inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.2em] text-black hover:bg-zinc-200 transition">
+                Full collection
+            </a>
+            <a href="/owners/products"
+                class="text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition">
+                Owner inventory →
+            </a>
+        </div>
+    </div>
+</div>

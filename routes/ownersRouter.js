@@ -38,14 +38,14 @@ router.get('/admin', isLoggedIn, isOwner, async (req, res) => {
     // }
     let success = req.flash('success');
     let error = req.flash('error');
-    res.render('createproducts', { success, error });
+    res.render('createproducts', { success, error, loggedIn: true });
 });
 
 router.get('/products', isLoggedIn, isOwner, async (req, res) => {
     let success = req.flash('success');
     let error = req.flash('error');
     let products = await productModel.find();
-    res.render('admin', { success, error, products });
+    res.render('admin', { success, error, products, loggedIn: true });
 });
 
 router.get('/edit-product/:id', isLoggedIn, isOwner, async (req, res) => {
@@ -57,7 +57,7 @@ router.get('/edit-product/:id', isLoggedIn, isOwner, async (req, res) => {
             req.flash('error', 'Product not found');
             return res.redirect('/owners/products');
         }
-        res.render('editproduct', { success, error, product });
+        res.render('editproduct', { success, error, product, loggedIn: true });
     } catch (err) {
         req.flash('error', 'Something went wrong');
         res.redirect('/owners/products');

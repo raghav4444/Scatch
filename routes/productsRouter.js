@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 
 router.post('/create', isLoggedIn, isOwner, upload.single('image'), async (req, res) => {
     try {
-        let { name, price, discount, bgcolor, pannelcolor, panelcolor, textcolor } = req.body;
+        let { name, price, discount, bgcolor, pannelcolor, panelcolor, textcolor, category, description } = req.body;
 
         if (!req.file) {
             req.flash('error', 'Product image is required');
@@ -30,7 +30,9 @@ router.post('/create', isLoggedIn, isOwner, upload.single('image'), async (req, 
             discount: discount,
             bgcolor: bgcolor,
             pannelcolor: panelcolor || pannelcolor,
-            textcolor: textcolor
+            textcolor: textcolor,
+            category: String(category || '').trim(),
+            description: String(description || '').trim()
         });
 
         req.flash('success', 'Product created successfully');
@@ -43,7 +45,7 @@ router.post('/create', isLoggedIn, isOwner, upload.single('image'), async (req, 
 
 router.post('/update/:id', isLoggedIn, isOwner, upload.single('image'), async (req, res) => {
     try {
-        let { name, price, discount, bgcolor, pannelcolor, panelcolor, textcolor } = req.body;
+        let { name, price, discount, bgcolor, pannelcolor, panelcolor, textcolor, category, description } = req.body;
         
         let updateData = {
             name: name,
@@ -51,7 +53,9 @@ router.post('/update/:id', isLoggedIn, isOwner, upload.single('image'), async (r
             discount: discount,
             bgcolor: bgcolor,
             pannelcolor: panelcolor || pannelcolor,
-            textcolor: textcolor
+            textcolor: textcolor,
+            category: String(category || '').trim(),
+            description: String(description || '').trim()
         };
         
         if (req.file) {

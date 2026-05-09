@@ -13,6 +13,8 @@ const flash = require('connect-flash');
 
 require('dotenv').config();
 
+const { MEGA_MENU } = require('./config/megaMenuCategories');
+
 // Connect to MongoDB
 const db = require('./config/mongoose-connect');
 
@@ -27,6 +29,11 @@ app.use(expressSession({
     saveUninitialized: false
 }));
 app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.megaMenu = MEGA_MENU;
+    next();
+});
 
 // Fallback for environments where connect-flash is not attached on req.
 app.use((req, res, next) => {

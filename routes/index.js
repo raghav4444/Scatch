@@ -4,6 +4,7 @@ const isLoggedIn = require('../middlewares/isLoggedIn');
 const productModel = require('../models/product-model');
 const userModel = require('../models/user-model');
 const jwt = require('jsonwebtoken');
+const { renderShop } = require('../helpers/renderShop');
 
 router.get('/', (req, res) => {
     let error = req.flash('error');
@@ -21,13 +22,20 @@ router.get('/', (req, res) => {
 
 router.get('/shop', isLoggedIn, async (req, res) => {
     try {
-        let error = req.flash('error');
-        let success = req.flash('success');
-        const products = await productModel.find();
-        res.render('shop', { error, success, products, loggedIn: true });
+        await renderShop(req, res, { baseQuery: {} });
     } catch (err) {
         req.flash('error', 'Unable to load products right now');
-        res.render('shop', { error: req.flash('error'), success: req.flash('success'), products: [], loggedIn: !!req.user });
+        res.render('shop', {
+            error: req.flash('error'),
+            success: req.flash('success'),
+            products: [],
+            loggedIn: !!req.user,
+            activeCategorySlug: '',
+            categoryMeta: null,
+            categoryFilterActive: false,
+            unknownCategorySlug: '',
+            shopFormPath: '/shop'
+        });
     }
 });
 
@@ -80,30 +88,43 @@ router.get('/add-to-cart/:productId', isLoggedIn, async (req, res) => {
 
 router.get('/discounted-products', isLoggedIn, async (req, res) => {
     try {
-        let error = req.flash('error');
-        let success = req.flash('success');
-        // find products with discount greater than 0
-        const products = await productModel.find({ discount: { $gt: 0 } });
-        //✅ 6.Using JavaScript filter (NOT recommended for large data)
-        // const allProducts = await productModel.find();
-        // const products = allProducts.filter(p => p.discount > 0);
-        res.render('shop', { error, success, products, loggedIn: true });
+        await renderShop(req, res, { baseQuery: { discount: { $gt: 0 } } });
     } catch (err) {
         req.flash('error', 'Unable to load products right now');
-        res.render('shop', { error: req.flash('error'), success: req.flash('success'), products: [], loggedIn: !!req.user });
+        res.render('shop', {
+            error: req.flash('error'),
+            success: req.flash('success'),
+            products: [],
+            loggedIn: !!req.user,
+            activeCategorySlug: '',
+            categoryMeta: null,
+            categoryFilterActive: false,
+            unknownCategorySlug: '',
+            shopFormPath: '/discounted-products'
+        });
     }
 });
 
 router.get('/new-collection', isLoggedIn, async (req, res) => {
     try {
-        let error = req.flash('error');
-        let success = req.flash('success');
-        // It will find products added in last 7 days
-        const products = await productModel.find({ date: { $gt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000) } }).sort({ date: -1 });
-        res.render('shop', { error, success, products, loggedIn: true });
+        const since = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+        await renderShop(req, res, {
+            baseQuery: { date: { $gt: since } },
+            forceSort: { date: -1 }
+        });
     } catch (err) {
         req.flash('error', 'Unable to load products right now');
-        res.render('shop', { error: req.flash('error'), success: req.flash('success'), products: [], loggedIn: !!req.user });
+        res.render('shop', {
+            error: req.flash('error'),
+            success: req.flash('success'),
+            products: [],
+            loggedIn: !!req.user,
+            activeCategorySlug: '',
+            categoryMeta: null,
+            categoryFilterActive: false,
+            unknownCategorySlug: '',
+            shopFormPath: '/new-collection'
+        });
     }
 });
 

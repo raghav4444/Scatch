@@ -22,7 +22,7 @@
     
     <div class="mb-10 md:mb-12 scroll-reveal text-center md:text-left">
         <span class="text-[10px] uppercase tracking-[0.35em] text-fuchsia-400 font-bold">Encrypted Access</span>
-        <h1 class="mt-4 text-3xl md:text-5xl font-semibold tracking-[-0.05em] text-glow">Admin Command</h1>
+        <h1 class="font-display mt-4 text-3xl md:text-5xl tracking-[-0.03em] text-white">Create product</h1>
     </div>
 
     <div class="flex flex-col lg:flex-row items-start gap-10">
@@ -74,6 +74,28 @@
                             <div class="space-y-2 md:space-y-3 md:col-span-2 lg:col-span-1">
                                 <label class="block text-[10px] md:text-[11px] uppercase tracking-[0.1em] font-medium text-zinc-400">Offset Amount (Discount)</label>
                                 <input name="discount" type="text" placeholder="Optional Offset" class="w-full py-3.5 md:py-4 px-4 md:px-5 rounded-[1rem] bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-colors">
+                            </div>
+
+                            <div class="space-y-2 md:space-y-3 md:col-span-2">
+                                <label class="block text-[10px] md:text-[11px] uppercase tracking-[0.1em] font-medium text-zinc-400">Mega-menu aisle (category slug)</label>
+                                <select name="category" class="w-full py-3.5 md:py-4 px-4 md:px-5 rounded-[1rem] bg-white/5 border border-white/10 text-white focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-colors text-sm">
+                                    <option value="">— General / browse all —</option>
+                                    <% if (typeof megaMenu !== 'undefined' && megaMenu) { %>
+                                        <% megaMenu.forEach(function(root) { %>
+                                            <% root.columns.forEach(function(col) { %>
+                                                <% col.links.forEach(function(link) { %>
+                                                    <option value="<%= link.slug %>"><%= root.label %> › <%= col.heading %> › <%= link.label %></option>
+                                                <% }); %>
+                                            <% }); %>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                                <p class="text-[10px] text-zinc-500 leading-relaxed">Matches navbar mega-menu. Leave blank to show only under “All shop”.</p>
+                            </div>
+
+                            <div class="space-y-2 md:space-y-3 md:col-span-2">
+                                <label class="block text-[10px] md:text-[11px] uppercase tracking-[0.1em] font-medium text-zinc-400">Description (optional)</label>
+                                <textarea name="description" rows="3" placeholder="Short product story for quick view…" class="w-full py-3.5 md:py-4 px-4 md:px-5 rounded-[1rem] bg-white/5 border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-cyan-400/50 focus:bg-white/10 transition-colors text-sm resize-y"></textarea>
                             </div>
                         </div>
                     </div>

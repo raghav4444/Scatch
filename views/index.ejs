@@ -76,6 +76,7 @@
                     }
                 });
             });
+
         });
     </script>
 
@@ -89,106 +90,85 @@
 
 
                 <!-- Hero -->
-                <main class="relative min-h-screen flex items-center pt-28 md:pt-36 pb-16">
-                    <div
-                        class="max-w-7xl mx-auto w-full px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                        <div class="lg:col-span-5 scroll-reveal">
-                            <div
-                                class="glass-liquid glass-stroke rounded-[2rem] md:rounded-[3rem] p-5 md:p-10 lg:p-12 relative overflow-hidden">
-                                <div class="absolute -top-20 -right-16 h-40 w-40 rounded-full bg-white/10 blur-3xl">
-                                </div>
-                                <div class="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-fuchsia-400/10 blur-3xl">
-                                </div>
+                <main class="relative pb-16 pt-28 md:pb-20 md:pt-36">
+                    <div class="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-6 lg:grid-cols-12 lg:px-8">
+                        <div class="scroll-reveal lg:col-span-5">
+                            <div class="glass-liquid glass-stroke relative overflow-hidden rounded-[2rem] p-5 md:rounded-[3rem] md:p-10 lg:p-12">
+                                <div class="pointer-events-none absolute -right-16 -top-20 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
+                                <div class="pointer-events-none absolute bottom-0 left-0 h-28 w-28 rounded-full bg-white/[0.06] blur-3xl"></div>
 
-                                <div
-                                    class="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] uppercase tracking-[0.35em] text-zinc-300 mb-8">
-                                    <span
-                                        class="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)]"></span>
+                                <div class="mb-8 inline-flex items-center gap-3 rounded-full lg px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.35em] text-zinc-300">
+                                    <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(110,231,183,0.8)]"></span>
                                     FW-26 Reserve
                                 </div>
 
-                                <h1
-                                    class="text-3xl sm:text-6xl lg:text-7xl font-semibold tracking-[-0.06em] leading-[0.92] text-glow">
+                                <h1 class="font-display text-[clamp(2.25rem,6vw,4.25rem)] leading-[0.92] tracking-[-0.04em] text-white">
                                     The Void
-                                    <span
-                                        class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-cyan-200">
+                                    <span class="mt-1 block bg-gradient-to-r from-white via-zinc-300 to-cyan-200 bg-clip-text font-[Barlow,sans-serif] text-[clamp(1.75rem,4.5vw,3.25rem)] font-semibold not-italic tracking-tight text-transparent">
                                         Series II
                                     </span>
                                 </h1>
 
-                                <p class="mt-6 text-sm md:text-base text-zinc-300/80 leading-8 max-w-xl">
+                                <p class="mt-6 max-w-xl text-sm leading-8 text-zinc-300 md:text-base">
                                     Sculpting shadow into silk. A collection defined by structural precision and atmospheric weight. Designed for those who inhabit the silence between trends.
                                 </p>
 
-                                <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                                    <button onclick="window.toggleAuthModal()"
-                                        class="btn-liquid relative inline-flex items-center justify-center rounded-full bg-white text-black px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:bg-zinc-200 transition hover:-translate-y-0.5">
+                                <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+                                    <button type="button" onclick="window.toggleAuthModal()"
+                                        class="btn-liquid relative inline-flex items-center justify-center rounded-full bg-white px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-black transition hover:-translate-y-0.5 hover:bg-zinc-200">
                                         Acquire Piece
                                     </button>
-
                                     <a href="#archive"
-                                        class="btn-liquid glass-soft inline-flex items-center justify-center rounded-full px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] hover:-translate-y-0.5 transition-all duration-300">
+                                        class="btn-liquid glass-soft inline-flex items-center justify-center rounded-full px-7 py-4 text-[11px] font-bold uppercase tracking-[0.22em] text-white transition-all duration-300 hover:-translate-y-0.5">
                                         Explore Archive
                                     </a>
                                 </div>
 
                                 <div class="mt-10 grid grid-cols-3 gap-4">
-                                    <div class="glass-soft rounded-2xl p-4">
-                                        <div class="text-2xl font-semibold tracking-tight">480</div>
-                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">GSM
-                                            Grade</div>
+                                    <div class="glass-soft rounded-2xl p-4 text-center">
+                                        <div class="font-display text-2xl text-white">480</div>
+                                        <div class="mt-1 text-[10px] uppercase tracking-[0.28em] text-zinc-400">GSM Grade</div>
                                     </div>
-                                    <div class="glass-soft rounded-2xl p-4">
-                                        <div class="text-2xl font-semibold tracking-tight">01</div>
-                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">Archive
-                                            File</div>
+                                    <div class="glass-soft rounded-2xl p-4 text-center">
+                                        <div class="font-display text-2xl text-white">01</div>
+                                        <div class="mt-1 text-[10px] uppercase tracking-[0.28em] text-zinc-400">Archive File</div>
                                     </div>
-                                    <div class="glass-soft rounded-2xl p-4">
-                                        <div class="text-2xl font-semibold tracking-tight">72h</div>
-                                        <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">Access
-                                            Window</div>
+                                    <div class="glass-soft rounded-2xl p-4 text-center">
+                                        <div class="font-display text-2xl text-white">72h</div>
+                                        <div class="mt-1 text-[10px] uppercase tracking-[0.28em] text-zinc-400">Access Window</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="lg:col-span-7 scroll-reveal delay-200">
+                        <div class="scroll-reveal delay-200 lg:col-span-7">
                             <div class="relative h-[30rem] sm:h-[38rem] lg:h-[46rem]">
-                                <div
-                                    class="absolute inset-0 glass-liquid glass-stroke rounded-[2.5rem] md:rounded-[3.5rem] p-3 animate-float-reverse">
-                                    <div
-                                        class="relative h-full w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-black/40">
-                                        <img src="/images/hero_cloth.png" alt="Hero Piece"
+                                <div class="glass-liquid glass-stroke absolute inset-0 rounded-[2.5rem] p-3 md:rounded-[3.5rem]">
+                                    <div class="relative h-full w-full overflow-hidden rounded-[2rem] bg-black/40 md:rounded-[3rem]">
+                                        <img src="/images/hero_cloth.png" alt="Hero piece"
                                             class="h-full w-full object-cover opacity-90 transition-transform duration-[2500ms] hover:scale-105" />
 
-                                        <div
-                                            class="absolute inset-0 bg-gradient-to-tr from-black/50 via-transparent to-white/5">
-                                        </div>
-                                        <div
-                                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent">
-                                        </div>
+                                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-black/50 via-transparent to-white/5"></div>
+                                        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-                                        <div
-                                            class="absolute top-6 left-6 glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-zinc-200">
+                                        <div class="absolute left-6 top-6 glass-soft rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.28em] text-zinc-200">
                                             Obsidian Layer
                                         </div>
 
                                         <div class="absolute bottom-6 left-6 right-6">
                                             <div class="glass-soft rounded-[1.75rem] p-5 md:p-6">
-                                                <div
-                                                    class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+                                                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                                                     <div>
-                                                        <h3
-                                                            class="text-2xl md:text-3xl font-semibold tracking-[-0.04em]">
+                                                        <h3 class="font-display text-2xl tracking-tight text-white md:text-3xl">
                                                             Absolute Presence</h3>
-                                                        <p class="text-sm text-zinc-300/80 mt-2 max-w-md leading-7">
+                                                        <p class="mt-2 max-w-md text-sm leading-7 text-zinc-300/85">
                                                             Mastery in fabric density and structural drape. This archive edition explores the intersection of brutalist architecture and fine silk.
                                                         </p>
                                                     </div>
                                                     <a href="/shop"
-                                                        class="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-bold text-white/90">
+                                                        class="inline-flex shrink-0 items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-white/90 hover:text-white">
                                                         Enter Shop
-                                                        <span>↗</span>
+                                                        <span aria-hidden="true">↗</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -196,25 +176,19 @@
                                     </div>
                                 </div>
 
-                                <div
-                                    class="absolute -top-4 right-2 md:right-0 glass-soft rounded-[2rem] p-5 w-56 animate-float-soft hidden md:block">
-                                    <div class="text-[10px] uppercase tracking-[0.25em] text-zinc-400 mb-2">Edition Card
-                                    </div>
-                                    <h4 class="text-lg font-semibold tracking-tight">Void Capsule</h4>
-                                    <p class="text-sm text-zinc-400 leading-6 mt-2">Precision-cut layer engineered with
-                                        premium density and elevated drape.</p>
+                                <div class="glass-soft absolute -top-4 right-2 hidden w-56 rounded-[2rem] p-5 md:right-0 md:block">
+                                    <div class="mb-2 text-[10px] uppercase tracking-[0.25em] text-zinc-400">Edition Card</div>
+                                    <h4 class="font-display text-lg tracking-tight text-white">Void Capsule</h4>
+                                    <p class="mt-2 text-sm leading-6 text-zinc-400">Precision-cut layer engineered with premium density and elevated drape.</p>
                                 </div>
 
-                                <div
-                                    class="absolute -bottom-6 left-6 glass-soft rounded-[2rem] p-5 w-60 animate-float-reverse hidden sm:block">
+                                <div class="glass-soft absolute -bottom-6 left-6 hidden w-60 rounded-[2rem] p-5 sm:block">
                                     <div class="flex items-center justify-between">
                                         <div>
-                                            <div class="text-2xl font-semibold">10k+</div>
-                                            <div class="text-[10px] uppercase tracking-[0.28em] text-zinc-400 mt-1">
-                                                Archive Sales</div>
+                                            <div class="font-display text-2xl text-white">10k+</div>
+                                            <div class="mt-1 text-[10px] uppercase tracking-[0.28em] text-zinc-400">Archive Sales</div>
                                         </div>
-                                        <div
-                                            class="h-12 w-12 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-lg">
+                                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-lg text-white">
                                             ✦
                                         </div>
                                     </div>
@@ -232,11 +206,10 @@
                             <div>
                                 <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
                                     Archive</span>
-                                <h2 class="mt-4 text-3xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em]">
-                                    Featured Drop Grid</h2>
+                                <h2 class="font-display mt-4 text-3xl md:text-5xl lg:text-[3.5rem] tracking-[-0.03em] leading-[1.02] text-white">
+                                    Featured silhouettes</h2>
                                 <p class="mt-4 max-w-2xl text-zinc-400 leading-8">
-                                    A cleaner, more cinematic product layout with layered glass surfaces, spotlight
-                                    hover interaction, and stronger modern luxury energy.
+                                    Editorial grids with liquid glass panels — hover depth, restrained typography, and a storefront tuned for premium apparel.
                                 </p>
                             </div>
                             <a href="/shop"
@@ -314,8 +287,8 @@
                             <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
                                 Mandate</span>
                             <h2
-                                class="mt-6 text-3xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em] leading-[1.08]">
-                                We do not manufacture garments. We engineer presence through structural density and silent form.
+                                class="font-display mt-6 text-3xl md:text-5xl lg:text-[3.5rem] tracking-[-0.03em] leading-[1.06] text-white">
+                                We engineer garments as architecture — precise drape, quiet palette, timeless silhouette.
                             </h2>
                             <p class="mt-6 text-zinc-400 max-w-3xl mx-auto leading-8">
                                 The interface mirrors the product philosophy itself: sharp, restrained, fluid, and
@@ -326,15 +299,15 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-14">
                             <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-100">
-                                <div class="text-3xl font-semibold">400</div>
+                                <div class="font-display text-3xl text-white">400</div>
                                 <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">GSM Fabric</div>
                             </div>
                             <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-200">
-                                <div class="text-3xl font-semibold">Pre</div>
+                                <div class="font-display text-3xl text-white">Pre</div>
                                 <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">Shrunk Wash</div>
                             </div>
                             <div class="glass-liquid rounded-[2rem] p-6 scroll-reveal delay-300">
-                                <div class="text-3xl font-semibold">10k</div>
+                                <div class="font-display text-3xl text-white">10k</div>
                                 <div class="mt-2 text-[10px] uppercase tracking-[0.3em] text-zinc-400">Pieces Sold</div>
                             </div>
                         </div>
@@ -350,12 +323,9 @@
                                 <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
                                     Atelier</span>
                                 <h2
-                                    class="mt-5 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em] leading-[1.05]">
+                                    class="font-display mt-5 text-4xl md:text-5xl lg:text-[3.25rem] tracking-[-0.03em] leading-[1.05] text-white">
                                     Mastery in
-                                    <span
-                                        class="block text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-300 to-cyan-200">
-                                        Isolation
-                                    </span>
+                                    <span class="block text-white/85">every stitch</span>
                                 </h2>
                                 <p class="mt-6 text-zinc-400 leading-8 max-w-xl">
                                     In our studio, each silhouette is refined away from trend noise. This archive explores a softer editorial composition, stronger spacing, premium fabric framing, and a more calculated text hierarchy.
@@ -412,8 +382,8 @@
                         <div class="mb-14 scroll-reveal">
                             <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Object
                                 Collection</span>
-                            <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Secondary
-                                Acquisitions</h2>
+                            <h2 class="font-display mt-4 text-4xl md:text-5xl tracking-[-0.03em] text-white">Objects &amp;
+                                extras</h2>
                         </div>
 
                         <% const accessories=[ { name: 'Archive Book VOL. III' , price: '$85' ,
@@ -462,8 +432,8 @@
                             <div>
                                 <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">The
                                     Syndicate</span>
-                                <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Voices of the
-                                    Archive</h2>
+                                <h2 class="font-display mt-4 text-4xl md:text-5xl tracking-[-0.03em] text-white">From our
+                                    wearers</h2>
                             </div>
                             <p class="max-w-md text-zinc-400 leading-8">
                                 The slider now feels more premium through larger glass cards, better spacing, stronger
@@ -522,7 +492,7 @@
                         <div class="text-center mb-14 scroll-reveal">
                             <span
                                 class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold">Intelligence</span>
-                            <h2 class="mt-4 text-4xl md:text-5xl font-semibold tracking-[-0.05em]">Frequently Asked</h2>
+                            <h2 class="font-display mt-4 text-4xl md:text-5xl tracking-[-0.03em] text-white">FAQ</h2>
                         </div>
 
                         <div class="space-y-5">
@@ -588,8 +558,8 @@
                             <div class="relative z-10">
                                 <span class="text-[10px] uppercase tracking-[0.35em] text-zinc-400 font-bold">Final
                                     Entry</span>
-                                <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-semibold tracking-[-0.05em]">
-                                    The Form Beckons
+                                <h2 class="font-display mt-4 text-4xl md:text-5xl lg:text-[3.5rem] tracking-[-0.03em] text-white">
+                                    Step into the collection
                                 </h2>
                                 <p class="mt-5 max-w-2xl mx-auto text-zinc-300/80 leading-8">
                                     The interface has shown the philosophy. Now let the catalog complete the experience
@@ -618,14 +588,13 @@
                             <div class="md:col-span-2">
                                 <div class="flex items-center gap-3 mb-5">
                                     <div
-                                        class="h-11 w-11 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-sm font-bold tracking-[0.2em]">
+                                        class="font-display lg flex h-11 w-11 items-center justify-center rounded-full text-xl text-white italic">
                                         N
                                     </div>
-                                    <span class="text-xl font-semibold tracking-[0.35em] uppercase">NEWRELLA</span>
+                                    <span class="font-display text-2xl tracking-tight text-white">NEWRELLA</span>
                                 </div>
                                 <p class="max-w-md text-zinc-400 leading-8 text-sm">
-                                    Absolute Form & Void. A unique luxury interface engineered with liquid glass,
-                                    atmospheric spacing, premium motion, and sculptural product framing.
+                                    Modern apparel with liquid-glass digital craftsmanship — tailored UX, cinematic product framing, and calm luxury rhythm throughout.
                                 </p>
                             </div>
 
@@ -668,7 +637,7 @@
                     <div class="absolute inset-0" onclick="window.toggleAuthModal()"></div>
 
                     <div
-                        class="relative w-full max-w-5xl glass-liquid rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/10 max-h-[90vh] overflow-y-auto md:overflow-visible">
+                        class="relative w-full max-w-5xl glass-liquid glass-stroke rounded-[2rem] md:rounded-[2.5rem] overflow-hidden max-h-[90vh] overflow-y-auto md:overflow-visible">
                         <button onclick="window.toggleAuthModal()"
                             class="absolute top-4 md:top-5 right-4 md:right-5 z-30 h-8 md:h-10 w-8 md:w-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition">
                             <i class="ri-close-line text-lg"></i>
@@ -756,3 +725,5 @@
                     </div>
                 </div>
             </div>
+
+<%- include('./partials/footer') %>
