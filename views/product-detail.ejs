@@ -1,0 +1,443 @@
+<%- include('./partials/header') %>
+
+    <% if(typeof success !=='undefined' && success.length>0){ %>
+        <div
+            class="fixed top-24 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full glass-soft border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+            <span
+                class="inline-flex items-center gap-2 text-emerald-300 text-[10px] uppercase tracking-[0.2em] font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <%= success %>
+            </span>
+        </div>
+        <% } %>
+
+            <% if(typeof error !=='undefined' && error && error.length>0){ %>
+                <div
+                    class="fixed top-24 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full glass-soft border border-red-500/30 shadow-[0_0_20px_rgba(239,68,68,0.15)]">
+                    <span
+                        class="inline-flex items-center gap-2 text-red-300 text-[10px] uppercase tracking-[0.2em] font-bold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+                        <%= error %>
+                    </span>
+                </div>
+                <% } %>
+
+                    <% 
+                        const deptShopHref = (typeof deptForBreadcrumb !== 'undefined' && deptForBreadcrumb) 
+                            ? `/shop?department=${encodeURIComponent(deptForBreadcrumb)}` 
+                            : '/shop';
+                        const rootLabel = (categoryMeta && categoryMeta.rootLabel) ? categoryMeta.rootLabel : 'Shop';
+                        const catLabel = (categoryMeta && categoryMeta.label) ? categoryMeta.label : (categorySlug || 'All pieces');
+                        const brandCrumb = `${brand} · ${catLabel}`;
+                        const imageSrc = product.image 
+                            ? ("data:image/jpeg;base64," + product.image.toString("base64")) 
+                            : "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=1000&fit=crop";
+                        const bestPrice = Math.max(199, Math.round(pb.selling * 0.74));
+                        const emiFrom = Math.max(54, Math.round(pb.selling / 20));
+                        const reviewSnippets = [
+                            { name: 'Azam Babu', date: '23 May 2025', stars: 5, text: 'Fabric quality feels excellent — breathable and comfortable through long days. The cut is flattering and stitching is immaculate. Easily works for desk days and dinners out.' },
+                            { name: 'Himanshu B Mohanty', date: '18 Apr 2026', stars: 5, text: 'Soft hand-feel with a polished drape. Precision fit without feeling restrictive. Holds its shape wash after wash; one of those wardrobe staples worth keeping in rotation.' },
+                            { name: 'Parul Shivhare', date: '16 Mar 2026', stars: 5, text: 'Elegant silhouette with neat finishing throughout. Comfortable for twelve-hour wears and versatile enough for both boardroom-ready and understated evening looks.' }
+                        ];
+                    %>
+
+                        <main
+                            class="w-full min-h-screen pt-24 md:pt-28 lg:pt-28 pb-32 lg:pb-24 px-4 sm:px-6 md:px-12 lg:px-20 relative z-10 text-white">
+
+                            <nav aria-label="Breadcrumb"
+                                class="text-[11px] text-zinc-500 mb-6 md:mb-8 overflow-x-auto whitespace-nowrap flex items-center gap-1.5 font-medium tracking-wide">
+                                <a href="/" class="hover:text-emerald-300 transition-colors">Home</a>
+                                <span class="text-zinc-600">/</span>
+                                <a href="<%= deptShopHref %>" class="hover:text-emerald-300 transition-colors"><%= rootLabel %></a>
+                                <span class="text-zinc-600">/</span>
+                                <a href="<%= typeof aisleShopHref !== 'undefined' ? aisleShopHref : '/shop' %>"
+                                    class="hover:text-emerald-300 transition-colors"><%= catLabel %></a>
+                                <span class="text-zinc-600">/</span>
+                                <span class="text-zinc-400"><%= brandCrumb %></span>
+                                <span class="text-zinc-600 mx-1">&gt;</span>
+                                <a href="<%= typeof aisleShopHref !== 'undefined' ? aisleShopHref : '/shop' %>"
+                                    class="text-emerald-400/90 hover:text-emerald-300 transition-colors">
+                                    More by <%= brand %>
+                                </a>
+                            </nav>
+
+                            <div class="lg:grid lg:grid-cols-12 lg:gap-10 xl:gap-14 lg:items-start">
+                            <div class="lg:col-span-7 grid grid-cols-1 lg:grid-cols-[minmax(72px,88px)_1fr_1fr] gap-3 md:gap-4 xl:gap-6">
+                                <!-- Thumbnails -->
+                                <div class="hidden lg:flex flex-col gap-2 order-2 lg:order-1 lg:sticky lg:self-start lg:top-32">
+                                    <% const thumbPos = ['object-top','object-[50%_35%]','object-center','object-[50%_75%]']; %>
+                                    <% thumbPos.forEach(function(pos,i){ %>
+                                        <button type="button" data-gallery-thumb="<%= i %>"
+                                            class="<%= i===0?'ring-2 ring-emerald-400/70':'' %> group rounded-xl overflow-hidden border border-white/10 bg-white/[0.02] aspect-square w-full shrink-0 hover:border-white/25 transition-colors">
+                                            <img src="<%= imageSrc %>" alt=""
+                                                class="w-full h-full object-cover <%= pos %> gallery-slot opacity-95 group-hover:opacity-100 transition-opacity" />
+                                        </button>
+                                    <% }); %>
+                                </div>
+
+                                <!-- Main gallery -->
+                                <div class="lg:col-span-2 lg:order-2 grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 min-h-[320px] sm:min-h-[420px]">
+                                    <% const mains = [['object-[50%_15%]',0],['object-[50%_45%]',1]]; %>
+                                    <% mains.forEach(function(pair){ %>
+                                        <div
+                                            class="rounded-2xl overflow-hidden glass-soft border border-white/10 aspect-[4/5] md:aspect-[3/4] bg-zinc-900/40">
+                                            <img src="<%= imageSrc %>" alt="<%= product.name %>"
+                                                data-gallery-main="<%= pair[1] %>"
+                                                class="gallery-main-img w-full h-full object-cover transition-all duration-500 <%= pair[0] %>" />
+                                        </div>
+                                    <% }); %>
+                                </div>
+
+                                <!-- Mobile thumbs -->
+                                <div class="flex lg:hidden gap-2 overflow-x-auto pb-1 order-3 sm:col-span-2 scrollbar-thin">
+                                    <% thumbPos.forEach(function(pos,i){ %>
+                                        <button type="button" data-gallery-thumb="<%= i %>"
+                                            class="<%= i===0?'ring-2 ring-emerald-400/70':'' %> shrink-0 w-14 h-14 rounded-lg overflow-hidden border border-white/10">
+                                            <img src="<%= imageSrc %>" alt="" class="gallery-slot w-full h-full object-cover <%= pos %>" />
+                                        </button>
+                                    <% }); %>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-5 mt-10 lg:mt-0 lg:sticky lg:self-start lg:top-28">
+                                <div class="glass-soft rounded-[1.5rem] border border-white/10 p-6 md:p-8 space-y-7 lg:bg-zinc-950/50">
+                                    <div>
+                                        <h1 class="font-display text-2xl md:text-3xl lg:text-[2rem] text-white tracking-tight leading-tight">
+                                            <%= brand %>
+                                        </h1>
+                                        <p class="mt-2 text-[15px] md:text-base text-zinc-400 leading-relaxed">
+                                            <%= subtitleLine %>
+                                        </p>
+
+                                        <div class="mt-4 flex flex-wrap items-center gap-3">
+                                            <span
+                                                class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[12px] font-semibold text-emerald-200/95">
+                                                <span><%= rating.toFixed(1) %></span>
+                                                <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L21 9.27l-5 3.63L18.18 21 12 17.77 5.82 21 8 12.91l-5-4.63 6.91-1.01L12 2z"/></svg>
+                                            </span>
+                                            <span class="text-zinc-600">|</span>
+                                            <span class="text-sm text-teal-300/80"><%= reviewCount %>
+                                                Ratings</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-wrap items-baseline gap-3">
+                                        <span class="text-3xl md:text-[2rem] font-bold text-white tracking-tight">₹<%= Math.round(pb.selling) %></span>
+                                        <% if(pb.validDiscount) { %>
+                                            <span class="text-base text-zinc-500 line-through">MRP ₹<%= Math.round(pb.mrp) %></span>
+                                            <span class="text-[13px] font-bold uppercase tracking-wide text-orange-400"><%= '(' + pb.discountPct + '% OFF)' %></span>
+                                        <% } %>
+                                    </div>
+                                    <p class="text-[11px] text-emerald-400/85 font-semibold uppercase tracking-[0.12em]">inclusive of all taxes</p>
+
+                                    <!-- Price details accordion -->
+                                    <details class="group rounded-2xl border border-white/10 bg-white/[0.03] open:bg-white/[0.05]">
+                                        <summary
+                                            class="cursor-pointer list-none flex items-center justify-between px-4 py-3 text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-300 hover:text-white">
+                                            Price Details
+                                            <i class="ri-arrow-down-s-line text-lg group-open:rotate-180 transition-transform"></i>
+                                        </summary>
+                                        <div class="px-4 pb-4 pt-0 grid gap-3 text-sm text-zinc-300 border-t border-white/5 mt-2 pt-4">
+                                            <div class="flex justify-between gap-4"><span class="text-zinc-500">Maximum Retail Price</span><span>Rs.&nbsp;<%= Math.round(pb.mrp) %></span></div>
+                                            <div class="text-[11px] text-zinc-500">(Incl. of all taxes)</div>
+                                            <% if(pb.validDiscount) { %>
+                                                <div class="flex justify-between gap-4 text-orange-300/95"><span>Discount</span><span><%= String(pb.discountPct) + '% OFF' %></span></div>
+                                                <% } %>
+                                            <div class="flex justify-between gap-4 font-semibold text-white pt-2 border-t border-white/10">
+                                                <span>Selling Price</span><span>Rs.&nbsp;<%= Math.round(pb.selling) %></span></div>
+                                            <div class="text-[11px] text-zinc-500">(Incl. of all taxes)</div>
+                                        </div>
+                                    </details>
+
+                                    <section>
+                                        <h3 class="text-[11px] font-bold uppercase tracking-[0.26em] text-zinc-500 mb-3">More colors</h3>
+                                        <div class="flex gap-2">
+                                            <span class="w-11 h-11 rounded-xl border border-white/20 shadow-inner shadow-black/60 bg-gradient-to-br from-white/95 to-zinc-400 ring-2 ring-emerald-400/50" title="Current"></span>
+                                            <span class="w-11 h-11 rounded-xl border border-white/15 bg-gradient-to-br from-slate-400 via-slate-600 to-black opacity-85 hover:opacity-100 cursor-pointer transition" title="Alt"></span>
+                                            <span class="w-11 h-11 rounded-xl border border-white/15 bg-gradient-to-br from-zinc-800 to-black opacity-85 hover:opacity-100 cursor-pointer transition" title="Alt"></span>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <div class="flex items-center justify-between gap-4 mb-3">
+                                            <h3 class="text-[11px] font-bold uppercase tracking-[0.26em] text-white">Select size</h3>
+                                            <button type="button" class="text-[11px] font-bold uppercase tracking-[0.15em] text-orange-400 hover:text-orange-300">Size chart ›</button>
+                                        </div>
+                                        <div class="flex flex-wrap gap-3" role="group" aria-label="Sizes">
+                                            <% ['39','40','42','43','44'].forEach(function(sz){ %>
+                                                <button type="button" data-size-btn
+                                                    class="min-w-[2.85rem] h-11 rounded-full border border-white/20 bg-white/[0.04] text-sm font-semibold text-zinc-200 hover:border-emerald-400/50 hover:bg-white/[0.08] transition data-[active=true]:border-emerald-400 data-[active=true]:text-emerald-200 data-[active=true]:shadow-[0_0_14px_rgba(52,211,153,0.18)]"><%= sz %></button>
+                                            <% }); %>
+                                        </div>
+                                    </section>
+
+                                    <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                                        <a href="/add-to-cart/<%= product._id %>"
+                                            class="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.08em] text-white shadow-[0_12px_40px_-12px_rgba(244,63,94,0.65)] hover:brightness-110 transition"
+                                            style="background: linear-gradient(135deg,#fb7185 0%, #ec4899 45%, #be185d 100%);">
+                                            <i class="ri-shopping-bag-3-line text-lg"></i>
+                                            Add to bag
+                                        </a>
+                                        <button type="button" id="pdp-wishlist"
+                                            class="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-transparent px-6 py-3.5 text-[13px] font-bold uppercase tracking-[0.08em] text-white hover:bg-white/10 transition">
+                                            <i class="ri-heart-line text-lg"></i>
+                                            Wishlist
+                                        </button>
+                                    </div>
+
+                                    <section class="rounded-2xl border border-white/10 bg-white/[0.02] p-4 space-y-3">
+                                        <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-zinc-400">
+                                            <i class="ri-truck-line text-base text-emerald-400/80"></i>
+                                            Delivery options
+                                        </div>
+                                        <div class="flex gap-2">
+                                            <input type="text" inputmode="numeric" maxlength="6" placeholder="Enter pincode"
+                                                class="flex-1 rounded-xl border border-white/15 bg-black/35 px-4 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-emerald-500/45 focus:outline-none" />
+                                            <button type="button" id="pin-check"
+                                                class="shrink-0 rounded-xl px-5 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] bg-white text-black hover:bg-zinc-200 transition">Check</button>
+                                        </div>
+                                        <p id="pin-msg" class="text-xs text-zinc-500 hidden">Estimated delivery · 5–8 business days. Pay on delivery available in select postcodes.</p>
+                                    </section>
+
+                                    <ul class="grid sm:grid-cols-3 gap-3 text-[11px] text-zinc-400 leading-snug border-t border-white/10 pt-6">
+                                        <li class="flex gap-2 items-start"><i class="ri-shield-star-line mt-0.5 text-emerald-400"></i><span><strong class="text-zinc-200">100%</strong> original catalogue</span></li>
+                                        <li class="flex gap-2 items-start"><i class="ri-hand-coin-line mt-0.5 text-emerald-400"></i><span><strong class="text-zinc-200">Pay on delivery</strong> available in select lanes</span></li>
+                                        <li class="flex gap-2 items-start"><i class="ri-arrow-go-back-line mt-0.5 text-emerald-400"></i><span>Easy <strong class="text-zinc-200">14-day</strong> returns & exchanges</span></li>
+                                    </ul>
+
+                                    <details class="rounded-2xl border border-white/10 bg-orange-500/[0.07] overflow-hidden">
+                                        <summary
+                                            class="cursor-pointer px-4 py-3 text-[11px] font-black uppercase tracking-[0.26em] text-orange-300 list-none flex justify-between items-center hover:bg-orange-500/10">
+                                            Best offers
+                                            <i class="ri-price-tag-3-line text-lg opacity-70"></i>
+                                        </summary>
+                                        <ul class="px-4 pb-4 pt-2 space-y-3 text-xs text-zinc-300 border-t border-white/5">
+                                            <li class="text-zinc-200 font-semibold">Best price · Rs.&nbsp;<%= bestPrice %>
+                                                — code <span class="text-orange-400">NRLOUNGE</span>: extra savings up to ₹<%= Math.round(Math.max(0,pb.mrp-bestPrice)*0.3) %>
+                                                <% if(pb.validDiscount){ %> vs MRP <% } %>
+                                            </li>
+                                            <li>Limited-time bank offers emulate luxury retail corridors — stacked instant discounts may apply subject to issuer rules.</li>
+                                            <li>10% instant discount on Axis / HSBC corridor cards · min ₹2,500 · <span class="text-zinc-500">T&amp;C</span></li>
+                                            <li>7.5% cashback + stacked instant rebate on alliance cards · ₹2,000+ basket · caps apply · <span class="text-zinc-500">T&amp;C</span></li>
+                                            <li>EMI corridor · from ₹<%= emiFrom %>/month · issuer plans at checkout · <span class="text-zinc-500">View plan</span></li>
+                                        </ul>
+                                    </details>
+
+                                    <section class="space-y-3">
+                                        <h3 class="text-[11px] font-bold uppercase tracking-[0.26em] text-zinc-500">Product details</h3>
+                                        <p class="text-sm text-zinc-300 leading-relaxed">
+                                            <%= product.description || subtitleLine %>
+                                        </p>
+                                        <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                                            <div>
+                                                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-2">Size &amp; fit</p>
+                                                <p class="text-sm text-zinc-400">Slim tailoring with room through the sleeve. Reference model wears M at 183&nbsp;cm.</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 mb-2">Material &amp; care</p>
+                                                <p class="text-sm text-zinc-400">Rich cotton yarns with easy-care finishing. Gentle machine wash cold; reshaped dry.</p>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <h3 class="text-[11px] font-bold uppercase tracking-[0.26em] text-zinc-500 mb-3">Specifications</h3>
+                                        <dl class="grid grid-cols-2 gap-x-6 gap-y-2 text-[13px]">
+                                            <% const specs=[['Shelf line',catLabel],['Fit profile','Modern slim'],['Length','Regular'],['Occasion','Day-to-evening'],['Origin','Atelier consortium'],['SKU',productCode]]; %>
+                                            <% specs.forEach(function(row){ %>
+                                                <dt class="text-zinc-600"><%= row[0] %></dt><dd class="text-zinc-200 text-right"><%= row[1] %></dd>
+                                            <% }); %>
+                                        </dl>
+                                        <button type="button" class="mt-4 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400/90 hover:text-emerald-300">See more</button>
+                                    </section>
+
+                                    <section class="rounded-[1.25rem] border border-white/10 bg-black/25 p-5 space-y-5">
+                                        <div class="flex flex-wrap gap-6 items-start">
+                                            <div>
+                                                <div class="text-4xl font-display text-white leading-none"><%= rating.toFixed(1) %></div>
+                                                <div class="flex gap-1 mt-2 text-amber-400">
+                                                    <% for(let i=0;i<5;i++){ %>
+                                                        <svg class="w-4 h-4 <%= rating >= i+0.8 ? 'fill-current' : (rating>i ? 'opacity-70 fill-current':'opacity-35') %>"
+                                                            viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L21 9.27l-5 3.63L18.18 21 12 17.77 5.82 21 8 12.91l-5-4.63 6.91-1.01L12 2z"/></svg>
+                                                    <% } %>
+                                                </div>
+                                                <p class="text-[11px] text-zinc-500 mt-2"><%= reviewCount %> verified closets</p>
+                                            </div>
+                                            <div class="flex-1 space-y-2 min-w-[200px]">
+                                                <% [5,4,3,2,1].forEach(function(star){ %>
+                                                    <div class="flex items-center gap-2 text-xs">
+                                                        <span class="w-3 text-zinc-500"><%= star %></span>
+                                                        <div class="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
+                                                            <div class="h-full bg-gradient-to-r from-teal-500/80 to-emerald-400 rounded-full transition-all duration-700"
+                                                                style="width:<%= Math.min(100, Math.round((starHistogram[star]/reviewCount)*100)) + '%' %>"></div>
+                                                        </div>
+                                                        <span class="w-8 text-right text-zinc-400 tabular-nums"><%= starHistogram[star] %></span>
+                                                    </div>
+                                                <% }); %>
+                                            </div>
+                                        </div>
+                                        <div class="grid sm:grid-cols-2 gap-4 pt-4 border-t border-white/10 text-sm">
+                                            <div>
+                                                <p class="text-zinc-500 text-[11px] font-bold uppercase tracking-[0.18em] mb-1">What customers said · Fit</p>
+                                                <p class="text-zinc-300">Just right · <strong class="text-white"><%= fitStats.fit + '%' %></strong></p>
+                                                <button type="button" class="mt-3 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-400/90 hover:text-emerald-300">View details</button>
+                                            </div>
+                                            <div>
+                                                <p class="text-zinc-500 text-[11px] font-bold uppercase tracking-[0.18em] mb-1">Length</p>
+                                                <p class="text-zinc-300">True to silhouette · <strong class="text-white"><%= fitStats.length + '%' %></strong></p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="text-[11px] font-bold uppercase tracking-[0.26em] text-zinc-500 mb-3">Customer photos · 12</p>
+                                            <div class="flex -space-x-2">
+                                                <% for(let p=1;p<=3;p++){ %>
+                                                    <span class="w-12 h-12 rounded-xl border border-white/20 bg-cover bg-center ring-2 ring-black/70"
+                                                        style="background-image:url('<%= imageSrc %>'); background-position:center <%= (p * 26) + '%' %>;"></span>
+                                                <% } %>
+                                                <span class="w-12 h-12 rounded-xl border border-dashed border-white/25 bg-white/[0.04] grid place-items-center text-[11px] font-bold text-zinc-400">+9</span>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <section>
+                                        <h3 class="text-[11px] font-bold uppercase tracking-[0.26em] text-zinc-500 mb-4">Customer reviews · 102 sampled</h3>
+                                        <ul class="space-y-6">
+                                            <% reviewSnippets.forEach(function(r){ %>
+                                                <li class="border-b border-white/10 pb-6 last:border-0 last:pb-0">
+                                                    <div class="flex items-center gap-2 mb-2">
+                                                        <span class="text-sm font-semibold text-white"><%= r.stars %> ★</span>
+                                                        <span class="text-[11px] text-zinc-600">★★★★★</span>
+                                                    </div>
+                                                    <p class="text-sm text-zinc-300 leading-relaxed"><%= r.text %></p>
+                                                    <p class="mt-3 text-[11px] text-zinc-600"><%= r.name %> · <%= r.date %></p>
+                                                </li>
+                                            <% }); %>
+                                        </ul>
+                                        <button type="button" class="mt-6 w-full py-3 rounded-xl border border-white/15 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-300 hover:bg-white/[0.05] transition">View all reviews</button>
+                                        <p class="mt-8 text-[11px] text-zinc-500">Product code: <strong class="text-zinc-300"><%= productCode %></strong></p>
+                                    </section>
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- Similar -->
+                            <% if(similarProducts && similarProducts.length) { %>
+                                <section class="mt-16 md:mt-24 pt-12 border-t border-white/10">
+                                    <div class="flex items-end justify-between gap-6 mb-8">
+                                        <div>
+                                            <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 mb-2">Curated carousel</p>
+                                            <h2 class="font-display text-3xl md:text-4xl text-white tracking-tight">Similar silhouettes</h2>
+                                        </div>
+                                        <a href="<%= typeof aisleShopHref !== 'undefined' ? aisleShopHref : '/shop' %>"
+                                            class="text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400/90 hover:text-emerald-300 shrink-0">View aisle</a>
+                                    </div>
+                                    <div class="flex gap-4 md:gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-thin [-webkit-overflow-scrolling:touch]">
+                                        <% const fbSim = [
+                                            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&fit=crop',
+                                            'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400&fit=crop',
+                                            'https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=400&fit=crop'
+                                        ]; %>
+                                        <% similarProducts.forEach(function(sp, ix){ %>
+                                            <% 
+                                                var mrpSp = Number(sp.price) || 0;
+                                                var discSp = Number(sp.discount) || 0;
+                                                var vdSp = discSp > 0 && discSp < mrpSp;
+                                                var spSell = vdSp ? Math.round((mrpSp - discSp) * 100) / 100 : mrpSp;
+                                                var spPct = vdSp ? Math.round((discSp / mrpSp) * 100) : 0;
+                                                var simImg = sp.image ? ('data:image/jpeg;base64,' + sp.image.toString('base64')) : fbSim[ix % fbSim.length];
+                                                var simIdStr = String(sp._id);
+                                                var hh = 0;
+                                                for (var si = 0; si < simIdStr.length; si++) hh = (Math.imul(31, hh) + simIdStr.charCodeAt(si)) | 0;
+                                                var frac = Math.abs(hh % 10) / 10;
+                                                var sr = Math.round((42 + frac * 6)) / 10;
+                                             %>
+                                                <article
+                                                    class="snap-start shrink-0 w-[200px] sm:w-[230px] md:w-[248px] rounded-2xl glass-soft border border-white/10 overflow-hidden hover:border-emerald-500/30 hover:-translate-y-0.5 transition-all duration-300">
+                                                    <a href="/product/<%= sp._id %>" class="block">
+                                                        <div class="aspect-[3/4] overflow-hidden bg-zinc-900/50">
+                                                            <img src="<%= simImg %>" alt="<%= sp.name %>" class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-out" />
+                                                        </div>
+                                                        <div class="p-4 space-y-2">
+                                                            <div class="flex justify-between gap-2 text-[11px] text-amber-300/90"><span><%= sr.toFixed(1) %> ★</span></div>
+                                                            <p class="text-[13px] text-zinc-100 font-semibold leading-snug line-clamp-2"><%= sp.name %></p>
+                                                            <div class="flex flex-wrap items-baseline gap-2 pt-1">
+                                                                <span class="text-white font-bold">₹<%= spSell %></span>
+                                                                <% if(vdSp){ %>
+                                                                    <span class="text-[11px] text-zinc-500 line-through">₹<%= mrpSp %></span>
+                                                                    <span class="text-[10px] text-orange-400 font-bold"><%= String(spPct) + '% OFF' %></span>
+                                                                <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </article>
+                                            <% }); %>
+                                    </div>
+                                </section>
+                            <% } %>
+                        </main>
+
+                        <div class="lg:hidden fixed bottom-0 inset-x-0 z-[65] px-4 pb-4 pt-2 bg-gradient-to-t from-black via-black/90 to-transparent">
+                            <div class="flex gap-3 glass-soft rounded-2xl border border-white/15 p-2 shadow-[0_-8px_40px_rgba(0,0,0,0.5)]">
+                                <a href="/add-to-cart/<%= product._id %>"
+                                    class="flex-[2] rounded-xl py-3.5 text-center text-[12px] font-bold uppercase tracking-[0.06em] text-white"
+                                    style="background:linear-gradient(135deg,#fb7185,#be185d);">Bag</a>
+                                <button type="button"
+                                    class="wishlist-mini flex-1 rounded-xl border border-white/25 text-[12px] font-bold uppercase tracking-[0.06em] text-white">Wishlist</button>
+                                <a href="/cart"
+                                    class="flex-1 rounded-xl bg-white text-black py-3.5 text-center text-[11px] font-bold uppercase tracking-[0.1em]">Cart</a>
+                            </div>
+                        </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                document.querySelectorAll('[data-gallery-thumb]').forEach((btn, _, all) => {
+                                    btn.addEventListener('click', function () {
+                                        var i = Number(btn.getAttribute('data-gallery-thumb'));
+                                        var rows = [
+                                            ['object-[50%_15%]', 'object-[50%_42%]'],
+                                            ['object-[50%_25%]', 'object-[50%_55%]'],
+                                            ['object-top', 'object-center'],
+                                            ['object-center', 'object-[50%_75%]']
+                                        ];
+                                        var pair = rows[i] || rows[0];
+                                        document.querySelectorAll('.gallery-main-img').forEach(function (img, j) {
+                                            img.setAttribute('class',
+                                                'gallery-main-img w-full h-full object-cover transition-all duration-500 ' +
+                                                (pair[j] || pair[0]));
+                                        });
+                                        all.forEach(function (b) {
+                                            b.classList.remove('ring-2', 'ring-emerald-400/70');
+                                        });
+                                        btn.classList.add('ring-2', 'ring-emerald-400/70');
+                                    });
+                                });
+
+                                document.querySelectorAll('[data-size-btn]').forEach((b, _, list) => {
+                                    b.addEventListener('click', function () {
+                                        list.forEach((x) => x.removeAttribute('data-active'));
+                                        b.setAttribute('data-active', 'true');
+                                    });
+                                });
+                                document.querySelector('[data-size-btn]')?.setAttribute('data-active', 'true');
+
+                                document.getElementById('pin-check')?.addEventListener('click', function () {
+                                    document.getElementById('pin-msg')?.classList.remove('hidden');
+                                });
+
+                                function toggleWish() {
+                                    var w = document.getElementById('pdp-wishlist');
+                                    if (!w) return;
+                                    w.classList.toggle('bg-white/10');
+                                    var heart = w.querySelector('i');
+                                    if (heart) {
+                                        heart.classList.toggle('ri-heart-line');
+                                        heart.classList.toggle('ri-heart-fill');
+                                        heart.classList.toggle('text-rose-400');
+                                    }
+                                }
+                                document.getElementById('pdp-wishlist')?.addEventListener('click', toggleWish);
+                                document.querySelector('.wishlist-mini')?.addEventListener('click', toggleWish);
+                            });
+                        </script>
+
+                        <%- include('./partials/footer') %>

@@ -53,6 +53,36 @@
             pointer-events: none;
         }
 
+        /* Same liquid rim as .lg but overflow visible. NO backdrop-filter here: in Chromium it
+           creates a containing block for position:fixed children, so mega-panels would size to
+           this narrow pill and left:50% would clip off-screen. */
+        .lg-host {
+            background: rgba(14, 14, 16, 0.78);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: visible;
+            border-radius: inherit;
+        }
+        .lg-host::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255, 255, 255, 0.45) 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.15) 80%,
+                rgba(255, 255, 255, 0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         .lg-strong {
             background: rgba(255, 255, 255, 0.01);
             backdrop-filter: blur(50px);
@@ -239,20 +269,21 @@
             transition: all 0.45s ease;
         }
 
-        /* Navbar — Aeon layout */
-        .site-nav {
+        /* Navbar — two-tier fixed cluster */
+        .site-header-cluster {
             position: fixed;
-            top: 16px;
+            top: 0;
             left: 0;
             right: 0;
             z-index: 60;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 clamp(16px, 4vw, 32px);
+            padding: 14px clamp(14px, 3vw, 28px) 10px;
             pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
         }
-        .site-nav > * {
+        .site-header-cluster .interactive {
             pointer-events: auto;
         }
         .nav-logo {
@@ -383,7 +414,11 @@
 
         /* Mega menu */
         .mega-root {
-            position: static;
+            position: relative;
+            z-index: 1;
+        }
+        .mega-root.mega-open {
+            z-index: 50;
         }
         .mega-hit {
             cursor: pointer;
@@ -406,62 +441,113 @@
         }
         .mega-panel {
             position: fixed;
-            left: 50%;
-            top: 72px;
-            width: min(96vw, 1120px);
-            max-height: min(72vh, 620px);
+            z-index: 100;
+            left: 0;
+            right: 0;
+            top: clamp(5.65rem, 11vw, 7rem);
+            box-sizing: border-box;
+            width: min(1400px, calc(100vw - 1.5rem));
+            max-width: min(1400px, calc(100vw - 1.5rem));
+            margin-left: auto;
+            margin-right: auto;
+            max-height: min(82vh, calc(100vh - 5.5rem));
+            overflow-x: hidden;
             overflow-y: auto;
-            z-index: 75;
-            padding: 1.25rem 1.35rem 1.5rem;
-            border-radius: 1.25rem;
+            -webkit-overflow-scrolling: touch;
+            padding: 1.75rem 2rem 2rem;
+            border-radius: 1.35rem;
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transform: translateX(-50%) translateY(6px);
-            transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
+            transform: translateY(-12px);
+            transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.28s cubic-bezier(0.32, 0.72, 0, 1);
             box-shadow: 0 28px 90px rgba(0,0,0,0.55);
-            background: rgba(6,6,8,0.82);
+            background: rgba(6,6,8,0.94);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
+            -webkit-font-smoothing: antialiased;
         }
-        @media (hover: hover) and (min-width: 1024px) {
+        /* Open when hovering the whole root (button + panel), on keyboard focus, or when toggled by click */
+        @media (min-width: 1024px) {
             .mega-root:hover .mega-panel,
-            .mega-root:focus-within .mega-panel {
+            .mega-root:focus-within .mega-panel,
+            .mega-root.mega-open .mega-panel {
                 opacity: 1;
                 visibility: visible;
                 pointer-events: auto;
-                transform: translateX(-50%) translateY(0);
+                transform: translateY(0);
             }
         }
-        .mega-root.mega-open .mega-panel {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0);
+        .site-mega-grid {
+            display: grid;
+            width: 100%;
+            box-sizing: border-box;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 1.75rem;
+            row-gap: 2.25rem;
+        }
+        @media (min-width: 640px) {
+            .site-mega-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                column-gap: 2rem;
+                row-gap: 2.5rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-mega-grid {
+                column-gap: 2.25rem;
+                row-gap: 2.75rem;
+            }
+        }
+        @media (min-width: 1280px) {
+            .site-mega-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                column-gap: 2.5rem;
+                row-gap: 2.5rem;
+            }
+        }
+        .mega-col {
+            min-width: 0;
         }
         .mega-col-heading {
-            font-size: 11px;
+            font-size: 0.8125rem;
             font-weight: 700;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(244, 244, 245, 0.95);
-            margin-bottom: 0.85rem;
-            padding-bottom: 0.35rem;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            line-height: 1.35;
+            color: rgba(45, 212, 191, 0.98);
+            margin: 0 0 1rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.22);
+        }
+        .mega-panel[data-accent="women"] .mega-col-heading {
+            color: rgba(251, 207, 232, 0.98);
+            border-bottom-color: rgba(251, 207, 232, 0.15);
+        }
+        .mega-panel[data-accent="kids"] .mega-col-heading {
+            color: rgba(254, 240, 138, 0.94);
+            border-bottom-color: rgba(254, 240, 138, 0.14);
         }
         .mega-link {
             display: block;
-            padding: 6px 0;
-            font-size: 13px;
-            font-weight: 400;
-            color: rgba(255,255,255,0.72);
+            padding: 0.4rem 0;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            line-height: 1.55;
+            letter-spacing: 0.01em;
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            transition: color 0.15s ease, transform 0.15s ease;
+            border-radius: 0.35rem;
+            margin: 0 -0.35rem;
+            padding-left: 0.35rem;
+            padding-right: 0.35rem;
+            transition: color 0.15s ease, background 0.15s ease, transform 0.15s ease;
         }
         .mega-link:hover {
             color: #fff;
-            transform: translateX(2px);
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(3px);
         }
         .nav-center-shell {
             display: none;
@@ -470,6 +556,7 @@
             flex-wrap: wrap;
             justify-content: center;
             max-width: min(92vw, 720px);
+            overflow: visible;
         }
         @media (min-width: 768px) {
             .nav-center-shell { display: flex; }
@@ -486,13 +573,7 @@
                 align-items: center;
                 gap: 2px;
                 padding: 4px 8px;
-                border-radius: 9999px;
-            }
-            .mega-desktop-wrap.lg {
-                background: rgba(255,255,255,0.01);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                box-shadow: inset 0 1px 1px rgba(255,255,255,0.1);
+                overflow: visible;
             }
         }
         .mobile-acc-btn {
@@ -534,6 +615,20 @@
             max-width: 420px;
             margin: 0 auto;
         }
+
+        .nav-stack-spacer {
+            height: clamp(5.75rem, 16vw, 7.25rem);
+        }
+        @media (min-width: 768px) {
+            .nav-stack-spacer {
+                height: clamp(6rem, 10vw, 7rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .nav-stack-spacer {
+                height: 6.85rem;
+            }
+        }
     </style>
 </head>
 
@@ -544,69 +639,75 @@
         <div class="absolute bottom-0 right-[5%] h-[22rem] w-[22rem] rounded-full bg-white/[0.02] blur-[90px]"></div>
     </div>
 
-    <nav class="site-nav" aria-label="Primary">
-        <a href="/" class="nav-logo lg" title="NEWRELLA">N</a>
-        <div class="nav-center-shell lg px-3 py-1 rounded-[999px]">
-            <a class="nav-link" href="/">Home</a>
+    <header class="site-header-cluster" aria-label="Site header">
+        <div class="interactive mx-auto flex w-full max-w-[1700px] flex-col gap-2 px-1 sm:px-0">
+            <nav class="flex items-center justify-between gap-3" aria-label="Primary">
+                <a href="/" class="nav-logo lg shrink-0" title="NEWRELLA">N</a>
+                <div class="nav-center-shell lg-host shrink min-w-0 px-3 py-1 rounded-[999px]">
+                    <a class="nav-link relative z-[1]" href="/">Home</a>
 
-            <% if (typeof megaMenu !== 'undefined' && megaMenu && megaMenu.length) { %>
-            <div class="mega-desktop-wrap lg" aria-hidden="false">
-                <% megaMenu.forEach(function(root) { %>
-                <div class="mega-root">
-                    <button type="button" class="mega-hit nav-link" aria-expanded="false" aria-haspopup="true" data-mega-btn>
-                        <%= root.label %>
-                        <span class="mega-chev" aria-hidden="true">▼</span>
-                    </button>
-                    <div class="mega-panel" role="region" aria-label="<%= root.label %> categories">
-                        <div class="grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-3 xl:grid-cols-5">
-                            <% root.columns.forEach(function(col) { %>
-                            <div>
-                                <p class="mega-col-heading"><%= col.heading %></p>
-                                <ul class="list-none m-0 p-0">
-                                    <% col.links.forEach(function(link) { %>
-                                    <li>
-                                        <a class="mega-link" href="/shop?category=<%= encodeURIComponent(link.slug) %>"><%= link.label %></a>
-                                    </li>
+                    <% if (typeof megaMenu !== 'undefined' && megaMenu && megaMenu.length) { %>
+                    <div class="mega-desktop-wrap lg-host rounded-[9999px]" aria-hidden="false">
+                        <% megaMenu.forEach(function(root) { %>
+                        <div class="mega-root">
+                            <button type="button" class="mega-hit nav-link relative z-[1]" aria-expanded="false" aria-haspopup="true" data-mega-btn>
+                                <%= root.label %>
+                                <span class="mega-chev" aria-hidden="true">▼</span>
+                            </button>
+                            <div class="mega-panel" role="region" aria-label="<%= root.label %> categories" data-accent="<%= root.accent || '' %>">
+                                <div class="site-mega-grid">
+                                    <% root.columns.forEach(function(col) { %>
+                                    <div class="mega-col">
+                                        <p class="mega-col-heading"><%= col.heading %></p>
+                                        <ul class="mega-col-list list-none m-0 p-0">
+                                            <% col.links.forEach(function(link) { %>
+                                            <li>
+                                                <a class="mega-link" href="/shop?category=<%= encodeURIComponent(link.slug) %>"><%= link.label %></a>
+                                            </li>
+                                            <% }); %>
+                                        </ul>
+                                    </div>
                                     <% }); %>
-                                </ul>
+                                </div>
                             </div>
-                            <% }); %>
                         </div>
+                        <% }); %>
                     </div>
-                </div>
-                <% }); %>
-            </div>
-            <% } %>
+                    <% } %>
 
-            <a class="nav-link lg:hidden" href="/shop">Shop</a>
-            <a class="nav-link" href="/order-tracking">Orders</a>
-            <a href="/shop" class="nav-cta hidden sm:inline-flex">
-                Shop collection
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-            </a>
+                    <a class="nav-link relative z-[1] lg:hidden shrink-0" href="/shop">Shop</a>
+                    <a class="nav-link relative z-[1] hidden md:inline-flex" href="/order-tracking">Orders</a>
+                    <a href="/shop" class="nav-cta relative z-[1] hidden lg:inline-flex shrink-0">
+                        Shop collection
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+                    </a>
+                </div>
+                <div class="nav-actions shrink-0 flex items-center">
+                    <a href="/cart" class="nav-icon-btn lg rounded-full" aria-label="Shopping bag">
+                        <i class="ri-shopping-bag-line text-xl"></i>
+                    </a>
+                    <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
+                        <a href="/users/logout" class="hidden md:inline nav-link text-red-300 hover:text-red-200 hover:bg-red-500/10">Logout</a>
+                        <a href="/profile" class="nav-icon-btn lg rounded-full" aria-label="Profile">
+                            <i class="ri-user-3-fill text-lg"></i>
+                        </a>
+                    <% } else { %>
+                        <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="hidden md:inline-flex nav-cta py-2 px-4 text-sm">
+                            Login
+                        </button>
+                        <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="nav-icon-btn lg rounded-full md:hidden" aria-label="Login">
+                            <i class="ri-key-2-line text-lg"></i>
+                        </button>
+                    <% } %>
+                    <button type="button" onclick="toggleMobileMenu()" class="nav-icon-btn lg rounded-full lg:hidden" aria-label="Menu">
+                        <i id="menu-icon" class="ri-menu-line text-xl transition-transform duration-300"></i>
+                    </button>
+                </div>
+            </nav>
         </div>
-        <div class="nav-actions">
-            <a href="/cart" class="nav-icon-btn lg rounded-full" aria-label="Shopping bag">
-                <i class="ri-shopping-bag-line text-xl"></i>
-            </a>
-            <% if (typeof loggedIn !== 'undefined' && loggedIn) { %>
-                <a href="/users/logout" class="hidden md:inline nav-link text-red-300 hover:text-red-200 hover:bg-red-500/10">Logout</a>
-                <a href="/profile" class="nav-icon-btn lg rounded-full" aria-label="Profile">
-                    <i class="ri-user-3-fill text-lg"></i>
-                </a>
-            <% } else { %>
-                <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="hidden md:inline-flex nav-cta py-2 px-4 text-sm">
-                    Login
-                </button>
-                <button type="button" onclick="window.toggleAuthModal && window.toggleAuthModal()" class="nav-icon-btn lg rounded-full md:hidden" aria-label="Login">
-                    <i class="ri-key-2-line text-lg"></i>
-                </button>
-            <% } %>
-            <button type="button" onclick="toggleMobileMenu()" class="nav-icon-btn lg rounded-full md:hidden" aria-label="Menu">
-                <i id="menu-icon" class="ri-menu-line text-xl transition-transform duration-300"></i>
-            </button>
-        </div>
-    </nav>
+    </header>
+
+    <div class="nav-stack-spacer shrink-0" aria-hidden="true"></div>
 
     <div id="mobile-menu" class="fixed inset-0 z-[80] pointer-events-none opacity-0 transition-opacity duration-500">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-xl" onclick="toggleMobileMenu()"></div>
@@ -689,6 +790,18 @@
                 }, { threshold: 0.06 });
                 observer.observe(el);
             });
+
+            document.querySelectorAll('.scroll-reveal').forEach(function (el) {
+                var observer = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.08 });
+                observer.observe(el);
+            });
         }
         requestAnimationFrame(initPageAnims);
 
@@ -703,8 +816,8 @@
             if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
 
-        (function initMegaMenuNav() {
-            var mqHover = window.matchMedia('(hover: hover) and (min-width: 1024px)');
+        function initMegaMenuNav() {
+            var mqDesktop = window.matchMedia('(min-width: 1024px)');
             function closeAllMega() {
                 document.querySelectorAll('.mega-root.mega-open').forEach(function (r) {
                     r.classList.remove('mega-open');
@@ -716,8 +829,9 @@
                 var btn = root.querySelector('[data-mega-btn]');
                 if (!btn) return;
                 btn.addEventListener('click', function (e) {
-                    if (mqHover.matches) return;
+                    if (!mqDesktop.matches) return;
                     e.preventDefault();
+                    e.stopPropagation();
                     var wasOpen = root.classList.contains('mega-open');
                     closeAllMega();
                     if (!wasOpen) {
@@ -727,10 +841,22 @@
                 });
             });
             document.addEventListener('click', function (e) {
-                if (!e.target.closest('.mega-root')) closeAllMega();
+                if (!mqDesktop.matches) return;
+                if (e.target.closest('.mega-root')) return;
+                closeAllMega();
             });
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') closeAllMega();
             });
-        })();
+            function onMqChange() {
+                if (!mqDesktop.matches) closeAllMega();
+            }
+            if (mqDesktop.addEventListener) mqDesktop.addEventListener('change', onMqChange);
+            else if (mqDesktop.addListener) mqDesktop.addListener(onMqChange);
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMegaMenuNav);
+        } else {
+            initMegaMenuNav();
+        }
     </script>

@@ -1,5 +1,9 @@
 const productModel = require('../models/product-model');
-const { findCategoryMeta } = require('../config/megaMenuCategories');
+const {
+    findCategoryMeta,
+    normalizeDepartment,
+    DEPARTMENT_PREFIX_REGEX
+} = require('../config/megaMenuCategories');
 
 /**
  * @param {import('express').Request} req
@@ -9,9 +13,13 @@ const { findCategoryMeta } = require('../config/megaMenuCategories');
 async function renderShop(req, res, options = {}) {
     const baseQuery = options.baseQuery || {};
     const categorySlug = String(req.query.category || '').trim();
+    const rawDept = normalizeDepartment(req.query.department);
+
     const query = { ...baseQuery };
     if (categorySlug) {
         query.category = categorySlug;
+    } else if (rawDept) {
+        query.category = { $regex: new RegExp(DEPARTMENT_PREFIX_REGEX[rawDept]) };
     }
 
     const sortOption = {};
@@ -32,6 +40,9 @@ async function renderShop(req, res, options = {}) {
               ? '/new-collection'
               : '/shop';
 
+    const activeDepartment =
+        categorySlug.length > 0 ? '' : rawDept;
+
     res.render('shop', {
         error: req.flash('error'),
         success: req.flash('success'),
@@ -41,7 +52,8 @@ async function renderShop(req, res, options = {}) {
         categoryMeta,
         categoryFilterActive: Boolean(categorySlug),
         unknownCategorySlug: categorySlug && !categoryMeta ? categorySlug : '',
-        shopFormPath
+        shopFormPath,
+        activeDepartment
     });
 }
 

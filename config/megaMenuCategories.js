@@ -1,10 +1,12 @@
 /**
  * Mega-menu taxonomy — slug must match Product.category in the database.
+ * Optional `accent` drives column heading tint in the UI ('women' | 'kids').
  */
 const MEGA_MENU = [
     {
         id: 'men',
         label: 'Men',
+        accent: '',
         columns: [
             {
                 heading: 'Topwear',
@@ -12,10 +14,11 @@ const MEGA_MENU = [
                     { label: 'T-Shirts', slug: 'men-t-shirts' },
                     { label: 'Casual Shirts', slug: 'men-casual-shirts' },
                     { label: 'Formal Shirts', slug: 'men-formal-shirts' },
-                    { label: 'Sweatshirts', slug: 'men-sweatshirts' },
+                    { label: 'Polo shirts', slug: 'men-polo-shirts' },
+                    { label: 'Sweatshirts & hoodies', slug: 'men-sweatshirts' },
                     { label: 'Sweaters', slug: 'men-sweaters' },
                     { label: 'Jackets', slug: 'men-jackets' },
-                    { label: 'Blazers & Coats', slug: 'men-blazers-coats' }
+                    { label: 'Blazers & trench coats', slug: 'men-blazers-coats' }
                 ]
             },
             {
@@ -24,7 +27,8 @@ const MEGA_MENU = [
                     { label: 'Kurtas', slug: 'men-kurtas' },
                     { label: 'Sherwanis', slug: 'men-sherwanis' },
                     { label: 'Nehru jackets', slug: 'men-nehru-jackets' },
-                    { label: 'Dhotis', slug: 'men-dhotis' }
+                    { label: 'Dhotis & pyjamas', slug: 'men-dhotis' },
+                    { label: 'Stoles & scarves', slug: 'men-stoles-scarves' }
                 ]
             },
             {
@@ -33,28 +37,32 @@ const MEGA_MENU = [
                     { label: 'Jeans', slug: 'men-jeans' },
                     { label: 'Casual trousers', slug: 'men-casual-trousers' },
                     { label: 'Formal trousers', slug: 'men-formal-trousers' },
+                    { label: 'Chinos', slug: 'men-chinos' },
                     { label: 'Shorts', slug: 'men-shorts' },
-                    { label: 'Track pants', slug: 'men-track-pants' }
+                    { label: 'Track pants & joggers', slug: 'men-track-pants' }
                 ]
             },
             {
                 heading: 'Footwear',
                 links: [
                     { label: 'Casual shoes', slug: 'men-casual-shoes' },
-                    { label: 'Sneakers', slug: 'men-sneakers' },
+                    { label: 'Sneakers & trainers', slug: 'men-sneakers' },
                     { label: 'Formal shoes', slug: 'men-formal-shoes' },
                     { label: 'Boots', slug: 'men-boots' },
-                    { label: 'Sandals', slug: 'men-sandals' }
+                    { label: 'Sandals & sliders', slug: 'men-sandals' },
+                    { label: 'Sports shoes', slug: 'men-sports-shoes' }
                 ]
             },
             {
                 heading: 'Sports & accessories',
                 links: [
-                    { label: 'Sports shoes', slug: 'men-sports-shoes' },
                     { label: 'Activewear', slug: 'men-activewear' },
+                    { label: 'Athleisure kits', slug: 'men-athleisure-kits' },
                     { label: 'Watches', slug: 'men-watches' },
                     { label: 'Belts & wallets', slug: 'men-belts-wallets' },
-                    { label: 'Bags', slug: 'men-bags' }
+                    { label: 'Bags & backpacks', slug: 'men-bags' },
+                    { label: 'Sunglasses', slug: 'men-sunglasses' },
+                    { label: 'Jewellery men', slug: 'men-jewellery' }
                 ]
             }
         ]
@@ -62,43 +70,106 @@ const MEGA_MENU = [
     {
         id: 'women',
         label: 'Women',
+        accent: 'women',
         columns: [
             {
-                heading: 'Indian & fusion',
+                heading: 'Indian & fusion wear',
                 links: [
-                    { label: 'Sarees', slug: 'women-sarees' },
                     { label: 'Kurtas & suits', slug: 'women-kurtas-suits' },
+                    { label: 'Kurtas & Kurtis', slug: 'women-kurtis' },
+                    { label: 'Ethnic gowns', slug: 'women-ethnic-gowns' },
+                    { label: 'Salwars & churidars', slug: 'women-salwars-churidars' },
+                    { label: 'Sarees', slug: 'women-sarees' },
                     { label: 'Lehengas', slug: 'women-lehengas' },
-                    { label: 'Dupattas', slug: 'women-dupattas' }
+                    { label: 'Dupattas & stoles', slug: 'women-dupattas' },
+                    { label: 'Leggings & tights', slug: 'women-leggings' },
+                    { label: 'Ethnic skirts', slug: 'women-ethnic-skirts' },
+                    { label: 'Ethnic shrugs', slug: 'women-ethnic-shrugs' }
                 ]
             },
             {
                 heading: 'Western wear',
                 links: [
                     { label: 'Dresses', slug: 'women-dresses' },
-                    { label: 'Tops', slug: 'women-tops' },
+                    { label: 'Tops & shirts', slug: 'women-tops' },
                     { label: 'T-shirts', slug: 'women-t-shirts' },
                     { label: 'Jeans', slug: 'women-jeans' },
-                    { label: 'Skirts', slug: 'women-skirts' },
-                    { label: 'Co-ords', slug: 'women-co-ords' }
+                    { label: 'Trousers', slug: 'women-trousers' },
+                    { label: 'Shorts & capris', slug: 'women-shorts-capris' },
+                    { label: 'Co-ords', slug: 'women-co-ords' },
+                    { label: 'Jumpsuits', slug: 'women-jumpsuits' },
+                    { label: 'Shrugs & cardigans', slug: 'women-shrug-cardigans' },
+                    { label: 'Sweaters & knitwear', slug: 'women-sweaters' },
+                    { label: 'Jackets & trench coats', slug: 'women-jackets-blazers' }
                 ]
             },
             {
-                heading: 'Footwear',
+                heading: 'Plus size',
                 links: [
-                    { label: 'Heels', slug: 'women-heels' },
+                    { label: 'Plus tops & tees', slug: 'women-plus-tops' },
+                    { label: 'Plus bottoms', slug: 'women-plus-bottoms' },
+                    { label: 'Plus dresses', slug: 'women-plus-dresses' },
+                    { label: 'Plus ethnic edit', slug: 'women-plus-ethnic' }
+                ]
+            },
+            {
+                heading: 'Footwear & sports',
+                links: [
                     { label: 'Flats', slug: 'women-flats' },
+                    { label: 'Heels', slug: 'women-heels' },
                     { label: 'Boots', slug: 'women-boots' },
-                    { label: 'Sneakers', slug: 'women-sneakers' }
+                    { label: 'Sneakers & trainers', slug: 'women-sneakers' },
+                    { label: 'Sports shoe women', slug: 'women-sports-shoes-foot' },
+                    { label: 'Sports clothing', slug: 'women-sports-clothing' },
+                    { label: 'Sports footwear', slug: 'women-activewear-footwear' },
+                    { label: 'Yoga studio sets', slug: 'women-studio-yoga' }
                 ]
             },
             {
-                heading: 'Beauty & bags',
+                heading: 'Maternity & frames',
                 links: [
-                    { label: 'Handbags', slug: 'women-handbags' },
-                    { label: 'Jewellery', slug: 'women-jewellery' },
-                    { label: 'Fragrances', slug: 'women-fragrances' },
-                    { label: 'Sunglasses', slug: 'women-sunglasses' }
+                    { label: 'Maternity wear', slug: 'women-maternity' },
+                    { label: 'Nursing essentials', slug: 'women-nursing' },
+                    { label: 'Sunglasses', slug: 'women-sunglasses' },
+                    { label: 'Optical frames', slug: 'women-optical-frames' }
+                ]
+            },
+            {
+                heading: 'Lingerie & sleepwear',
+                links: [
+                    { label: 'Bras', slug: 'women-bras' },
+                    { label: 'Briefs & underwear', slug: 'women-briefs' },
+                    { label: 'Shapewear', slug: 'women-shapewear' },
+                    { label: 'Swim & beachwear', slug: 'women-swimwear' },
+                    { label: 'Loungewear', slug: 'women-loungewear' },
+                    { label: 'Nightdress & pyjamas', slug: 'women-nightdress' },
+                    { label: 'Robes', slug: 'women-robes' }
+                ]
+            },
+            {
+                heading: 'Beauty & personal care',
+                links: [
+                    { label: 'Makeup face', slug: 'women-beauty-makeup' },
+                    { label: 'Skin care edit', slug: 'women-skincare-mini' },
+                    { label: 'Lipsticks & liners', slug: 'women-lip-collection' },
+                    { label: 'Fragrances women', slug: 'women-fragrances' },
+                    { label: 'Premium beauty capsules', slug: 'women-premium-beauty' },
+                    { label: 'Hair care picks', slug: 'women-haircare-mini' }
+                ]
+            },
+            {
+                heading: 'Gadgets & accessories',
+                links: [
+                    { label: 'Smart wearables', slug: 'women-smart-wearables' },
+                    { label: 'Headphones Capsule', slug: 'women-headphones-mini' },
+                    { label: 'Fine jewellery edit', slug: 'women-fine-jewellery' },
+                    { label: 'Fashion jewellery', slug: 'women-jewellery' },
+                    { label: 'Earrings stacks', slug: 'women-earrings' },
+                    { label: 'Handbags leather', slug: 'women-handbags' },
+                    { label: 'Totes & satchels', slug: 'women-handbags-mini' },
+                    { label: 'Backpacks', slug: 'women-backpacks' },
+                    { label: 'Wallets & belts', slug: 'women-wallets-belts' },
+                    { label: 'Luggage & trolley', slug: 'women-luggage' }
                 ]
             }
         ]
@@ -106,76 +177,81 @@ const MEGA_MENU = [
     {
         id: 'kids',
         label: 'Kids',
+        accent: 'kids',
         columns: [
             {
                 heading: 'Boys clothing',
                 links: [
                     { label: 'T-Shirts', slug: 'kids-boys-t-shirts' },
                     { label: 'Shirts', slug: 'kids-boys-shirts' },
-                    { label: 'Jeans & trousers', slug: 'kids-boys-bottoms' },
-                    { label: 'Ethnic wear', slug: 'kids-boys-ethnic' }
+                    { label: 'Shorts', slug: 'kids-boys-shorts' },
+                    { label: 'Jeans', slug: 'kids-boys-jeans' },
+                    { label: 'Trousers', slug: 'kids-boys-trousers' },
+                    { label: 'Ethnic wear boys', slug: 'kids-boys-ethnic' },
+                    { label: 'Winter jackets boys', slug: 'kids-boys-jackets-winter' },
+                    { label: 'Clothing combos', slug: 'kids-boys-combos' }
                 ]
             },
             {
                 heading: 'Girls clothing',
                 links: [
-                    { label: 'Dresses', slug: 'kids-girls-dresses' },
-                    { label: 'Tops & tees', slug: 'kids-girls-tops' },
-                    { label: 'Skirts & shorts', slug: 'kids-girls-bottoms' },
-                    { label: 'Ethnic wear', slug: 'kids-girls-ethnic' }
+                    { label: 'Dresses party', slug: 'kids-girls-dresses' },
+                    { label: 'Tops', slug: 'kids-girls-tops' },
+                    { label: 'T-shirts', slug: 'kids-girls-t-shirts' },
+                    { label: 'Clothing sets', slug: 'kids-girls-sets' },
+                    { label: 'Jeans', slug: 'kids-girls-jeans' },
+                    { label: 'Trousers & leggings', slug: 'kids-girls-trousers' },
+                    { label: 'Skirts & shorts', slug: 'kids-girls-skirts-short' },
+                    { label: 'Ethnic wear girls', slug: 'kids-girls-ethnic' },
+                    { label: 'Lehenga choli kids', slug: 'kids-girls-lehengas' },
+                    { label: 'Winter layers girls', slug: 'kids-girls-winter' }
                 ]
             },
             {
                 heading: 'Infants',
                 links: [
+                    { label: 'Bodysuits', slug: 'kids-infants-bodysuits' },
                     { label: 'Rompers', slug: 'kids-infant-rompers' },
-                    { label: 'Sets', slug: 'kids-infant-sets' },
-                    { label: 'Accessories', slug: 'kids-infant-accessories' }
+                    { label: 'Sleepsuits', slug: 'kids-infants-sleepsuits' },
+                    { label: 'Infant sets', slug: 'kids-infant-sets' },
+                    { label: 'Winter infant', slug: 'kids-infants-winter' },
+                    { label: 'Accessories infants', slug: 'kids-infant-accessories' }
                 ]
             },
             {
                 heading: 'Footwear',
                 links: [
-                    { label: 'Boys shoes', slug: 'kids-boys-shoes' },
-                    { label: 'Girls shoes', slug: 'kids-girls-shoes' },
+                    { label: 'Casual shoe boys', slug: 'kids-footwear-casual-boys' },
+                    { label: 'Casual shoe girls', slug: 'kids-footwear-casual-girls' },
+                    { label: 'Flip flops kids', slug: 'kids-footwear-flipflops' },
+                    { label: 'Sports shoes kids', slug: 'kids-sports-footwear' },
+                    { label: 'Flats girls kids', slug: 'kids-girls-footwear-flat' },
                     { label: 'School shoes', slug: 'kids-school-shoes' }
                 ]
-            }
-        ]
-    },
-    {
-        id: 'home-beauty',
-        label: 'Home & beauty',
-        columns: [
-            {
-                heading: 'Home',
-                links: [
-                    { label: 'Bedding', slug: 'home-bedding' },
-                    { label: 'Bath', slug: 'home-bath' },
-                    { label: 'Decor', slug: 'home-decor' },
-                    { label: 'Kitchen', slug: 'home-kitchen' }
-                ]
             },
             {
-                heading: 'Beauty',
+                heading: 'Kids accessories',
                 links: [
-                    { label: 'Makeup', slug: 'beauty-makeup' },
-                    { label: 'Skin care', slug: 'beauty-skincare' },
-                    { label: 'Hair care', slug: 'beauty-haircare' },
-                    { label: 'Fragrances', slug: 'beauty-fragrances' }
-                ]
-            },
-            {
-                heading: 'Studio / curated',
-                links: [
-                    { label: 'New edits', slug: 'studio-new-edits' },
-                    { label: 'Collaborations', slug: 'studio-collabs' },
-                    { label: 'Limited drops', slug: 'studio-limited' }
+                    { label: 'Socks packs', slug: 'kids-accessories-socks' },
+                    { label: 'Caps & hats', slug: 'kids-accessories-caps' },
+                    { label: 'School bags', slug: 'kids-accessories-school-bags' },
+                    { label: 'Belts boys kids', slug: 'kids-accessories-belts' },
+                    { label: 'Winter gloves kids', slug: 'kids-accessories-winter-mini' },
+                    { label: 'Jewellery kits kids', slug: 'kids-accessories-mini-jewellery' },
+                    { label: 'Featured kids labels', slug: 'kids-brands-curate' },
+                    { label: 'Holiday capsule kids', slug: 'kids-holiday-capsule' }
                 ]
             }
         ]
     }
 ];
+
+/** Maps ?department= to Mongo category slug prefix regex */
+const DEPARTMENT_PREFIX_REGEX = {
+    men: '^men-',
+    women: '^women-',
+    kids: '^kids-'
+};
 
 function findCategoryMeta(slug) {
     if (!slug || typeof slug !== 'string') return null;
@@ -210,8 +286,16 @@ function collectAllSlugs() {
     return slugs;
 }
 
+function normalizeDepartment(dep) {
+    if (!dep || typeof dep !== 'string') return '';
+    const d = dep.trim().toLowerCase();
+    return DEPARTMENT_PREFIX_REGEX[d] ? d : '';
+}
+
 module.exports = {
     MEGA_MENU,
+    DEPARTMENT_PREFIX_REGEX,
     findCategoryMeta,
-    collectAllSlugs
+    collectAllSlugs,
+    normalizeDepartment
 };

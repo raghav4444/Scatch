@@ -1,7 +1,10 @@
-<% 
+<%
     var slugDisplay = typeof activeCategorySlug !== 'undefined' ? activeCategorySlug : '';
     var meta = typeof categoryMeta !== 'undefined' ? categoryMeta : null;
     var unknown = typeof unknownCategorySlug !== 'undefined' && unknownCategorySlug;
+    var dept = (typeof activeDepartment !== 'undefined' && activeDepartment) ? String(activeDepartment).trim().toLowerCase() : '';
+    var deptTitles = { men: 'Men', women: 'Women', kids: 'Kids' };
+    var deptLine = dept && deptTitles[dept] ? deptTitles[dept] : (dept || '');
 %>
 <div class="col-span-full flex flex-col items-center justify-center px-4 py-14 md:py-20">
     <div class="glass-liquid glass-stroke relative w-full max-w-xl overflow-hidden rounded-[1.5rem] md:rounded-[2rem] px-8 py-12 md:px-12 md:py-14 text-center">
@@ -29,6 +32,13 @@
             </h2>
             <p class="mt-4 text-sm leading-relaxed text-zinc-400">
                 Nothing listed under <span class="text-white/90"><%= meta.rootLabel %> · <%= meta.label %></span> yet. Assign products to this category in the owner panel — until then, enjoy the rest of the collection.
+            </p>
+        <% } else if (dept && deptLine && !slugDisplay) { %>
+            <h2 class="font-display text-[clamp(1.75rem,5vw,2.75rem)] leading-tight tracking-tight text-white">
+                Stocking <%= deptLine %> now
+            </h2>
+            <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+                The <span class="text-white/90"><%= deptLine %></span> corridor is coming online — tag inventory with matching category slugs in the owner dashboard, then refresh this aisle.
             </p>
         <% } else { %>
             <h2 class="font-display text-[clamp(1.75rem,5vw,2.75rem)] leading-tight tracking-tight text-white">

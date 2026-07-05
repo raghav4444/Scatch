@@ -1,0 +1,100 @@
+<%- include('./partials/header') %>
+
+<% if (typeof success !== 'undefined' && success && success.length > 0) { %>
+<div class="fixed top-24 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full glass-soft border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+    <span class="inline-flex items-center gap-2 text-emerald-300 text-[10px] uppercase tracking-[0.2em] font-bold">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <%= success %>
+    </span>
+</div>
+<% } %>
+
+<% if (typeof error !== 'undefined' && error && error.length > 0) { %>
+<div class="fixed top-24 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-full glass-soft border border-red-500/30 shadow-[0_0_20px_rgba(239,68,68,0.15)]">
+    <span class="inline-flex items-center gap-2 text-red-300 text-[10px] uppercase tracking-[0.2em] font-bold">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+        <%= error %>
+    </span>
+</div>
+<% } %>
+
+<main class="mx-auto w-full max-w-7xl pt-24 md:pt-28 pb-20 px-5 md:px-10 min-h-[calc(100vh-80px)] text-white relative z-10">
+    <div class="mb-8 md:mb-10">
+        <p class="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-bold mb-2">Account</p>
+        <h1 class="font-display text-3xl md:text-5xl tracking-[-0.03em] text-white">Profile</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
+        <aside class="lg:col-span-4">
+            <div class="glass-soft rounded-[1.5rem] p-6 md:p-8 border border-white/10">
+                <div class="flex items-start gap-4">
+                    <div class="h-14 w-14 md:h-16 md:w-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-lg md:text-xl font-bold tracking-wide">
+                        <%= initials || 'U' %>
+                    </div>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-bold">Member</p>
+                        <h2 class="mt-1 text-xl md:text-2xl font-semibold tracking-tight"><%= user.fullName %></h2>
+                        <p class="mt-1 text-sm text-zinc-400"><%= user.email %></p>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <div class="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Orders</p>
+                        <p class="mt-2 text-2xl font-semibold"><%= orderCount %></p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Cart items</p>
+                        <p class="mt-2 text-2xl font-semibold"><%= cartItems.length %></p>
+                    </div>
+                </div>
+
+                <div class="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                    <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Current basket value</p>
+                    <p class="mt-2 text-2xl font-semibold">₹<%= Math.round(spentEstimate || 0) %></p>
+                </div>
+            </div>
+        </aside>
+
+        <section class="lg:col-span-8 space-y-6">
+            <div class="glass-soft rounded-[1.5rem] p-6 md:p-8 border border-white/10">
+                <h3 class="text-lg md:text-xl font-semibold tracking-tight">Account details</h3>
+                <div class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="rounded-xl border border-white/10 p-4 bg-white/[0.02]">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Full name</p>
+                        <p class="mt-2 text-sm md:text-base text-zinc-200"><%= user.fullName %></p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 p-4 bg-white/[0.02]">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Email</p>
+                        <p class="mt-2 text-sm md:text-base text-zinc-200 break-all"><%= user.email %></p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 p-4 bg-white/[0.02]">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Contact</p>
+                        <p class="mt-2 text-sm md:text-base text-zinc-200"><%= user.contact ? user.contact : 'Add phone number' %></p>
+                    </div>
+                    <div class="rounded-xl border border-white/10 p-4 bg-white/[0.02]">
+                        <p class="text-[10px] uppercase tracking-[0.18em] text-zinc-500 font-bold">Address</p>
+                        <p class="mt-2 text-sm md:text-base text-zinc-200">No saved addresses yet</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-soft rounded-[1.5rem] p-6 md:p-8 border border-white/10">
+                <h3 class="text-lg md:text-xl font-semibold tracking-tight">Quick actions</h3>
+                <div class="mt-5 flex flex-wrap gap-3">
+                    <a href="/order-tracking" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-white/10 transition">
+                        <i class="ri-file-list-3-line"></i> View orders
+                    </a>
+                    <a href="/cart" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-white/10 transition">
+                        <i class="ri-shopping-bag-line"></i> Open bag
+                    </a>
+                    <a href="/shop" class="inline-flex items-center gap-2 rounded-full bg-white text-black px-5 py-2.5 text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-zinc-200 transition">
+                        <i class="ri-store-2-line"></i> Continue shopping
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<%- include('./partials/footer') %>
